@@ -55,8 +55,21 @@ class GIRAReportModel implements IReportModel {
         return NAME
     }
 
-    URL getReportFile() {
+    URL getMainReportFile() {
         return getClass().getResource("/reports/gira/GiraReport.jasper")
+    }
+
+    List<URL> getAllSourceFiles() {
+        [
+                getClass().getResource("/reports/gira/GiraReport.jrxml"),
+                getClass().getResource("/reports/gira/CERSub_Comments.jrxml"),
+                getClass().getResource("/reports/gira/CERSub_PDFChart_legend.jrxml"),
+                getClass().getResource("/reports/gira/CERSub_PDFChartAndCommentsInfo.jrxml"),
+                getClass().getResource("/reports/gira/CERSub_PDFCharts.jrxml"),
+                getClass().getResource("/reports/gira/CERSub_ReportInfoTable.jrxml"),
+                getClass().getResource("/reports/gira/CERSub_ValuesTable.jrxml"),
+                getClass().getResource("/reports/gira/CERSub_WaterfallOverview.jrxml"),
+        ]
     }
 
     Map getParameters(Simulation simulation) {
