@@ -35,9 +35,6 @@
 
 
     <target name="clean" depends="init" description="--> Cleans a Grails application">
-        <delete dir="${dist.dir}"/>
-
-        <mkdir dir="${dist.dir}"/>
         <grails command="clean" jvmargs="-Dtools.jar=../jre1.5.0_11/lib/tools.jar"/>
         <delete verbose="true">
             <fileset dir="." includes="*Db.script"/>
