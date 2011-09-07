@@ -1,31 +1,76 @@
-grails.project.class.dir = "target/classes"
-grails.project.test.class.dir = "target/test-classes"
-grails.project.test.reports.dir = "target/test-reports"
-//grails.project.war.file = "target/${appName}-${appVersion}.war"
 grails.project.dependency.resolution = {
-    // inherit Grails' default dependencies
-    inherits("global") {
-        // uncomment to disable ehcache
-        // excludes 'ehcache'
-    }
-    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    inherits "global" // inherit Grails' default dependencies
+    log "warn"
+
     repositories {
-        grailsPlugins()
         grailsHome()
         grailsCentral()
-
-        // uncomment the below to enable remote dependency resolution
-        // from public Maven repositories
-        //mavenLocal()
-        //mavenCentral()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
     }
+
+    mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
+    String ulcVersion = "ria-suite-u2"
+
+    plugins {
+        runtime ":background-thread:1.3"
+        runtime ":hibernate:1.3.7"
+        runtime ":joda-time:0.5"
+        runtime ":maven-publisher:0.7.5"
+        runtime ":quartz:0.4.2"
+        runtime ":spring-security-core:1.1.2"
+        runtime ":tomcat:1.3.7"
+
+        runtime "org.pillarone:jasper:0.9.5-riskanalytics"
+        compile "com.canoo:ulc:${ulcVersion}"
+        runtime "org.pillarone:pillar-one-ulc-extensions:0.1"
+
+        test ":code-coverage:1.2.4"
+
+        if (appName == "risk-analytics-reporting") {
+            runtime "org.pillarone:risk-analytics-core:1.4-BETA-3.1"
+            runtime "org.pillarone:risk-analytics-application:1.4-BETA-6"
+            runtime "org.pillarone:risk-analytics-pc-cashflow:0.1.14"
+            runtime "org.pillarone:risk-analytics-commons:0.1.23"
+        }
+    }
+
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.13'
+        compile group: 'canoo', name: 'ulc-applet-client', version: ulcVersion
+        compile group: 'canoo', name: 'ulc-base-client', version: ulcVersion
+        compile group: 'canoo', name: 'ulc-base-trusted', version: ulcVersion
+        compile group: 'canoo', name: 'ulc-jnlp-client', version: ulcVersion
+        compile group: 'canoo', name: 'ulc-servlet-client', version: ulcVersion
+        compile group: 'canoo', name: 'ulc-standalone-client', version: ulcVersion
     }
+}
+
+grails.project.dependency.distribution = {
+    String password = ""
+    String user = ""
+    String scpUrl = ""
+    try {
+        Properties properties = new Properties()
+        properties.load(new File("${userHome}/deployInfo.properties").newInputStream())
+
+        user = properties.get("user")
+        password = properties.get("password")
+        scpUrl = properties.get("url")
+    } catch (Throwable t) {
+    }
+    remoteRepository(id: "pillarone", url: scpUrl) {
+        authentication username: user, password: password
+    }
+}
+
+coverage {
+    exclusions = [
+            'models/**',
+            '**/*Test*',
+            '**/com/energizedwork/grails/plugins/jodatime/**',
+            '**/grails/util/**',
+            '**/org/codehaus/**',
+            '**/org/grails/**',
+            '**GrailsPlugin**',
+            '**TagLib**'
+    ]
+
 }

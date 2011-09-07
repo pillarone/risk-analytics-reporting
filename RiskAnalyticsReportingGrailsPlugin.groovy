@@ -1,3 +1,7 @@
+import org.pillarone.riskanalytics.core.report.ReportRegistry
+import models.gira.GIRAModel
+import org.pillarone.riskanalytics.reporting.gira.GIRAReportModel
+
 class RiskAnalyticsReportingGrailsPlugin {
     // the plugin version
     def version = "0.1"
@@ -5,6 +9,9 @@ class RiskAnalyticsReportingGrailsPlugin {
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
     def dependsOn = [:]
+
+    def groupId = "org.pillarone"
+
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp"
@@ -34,7 +41,7 @@ Brief description of the plugin.
     }
 
     def doWithApplicationContext = { applicationContext ->
-        // TODO Implement post initialization spring config (optional)
+        ReportRegistry.registerReportModel(GIRAModel, new GIRAReportModel())
     }
 
     def onChange = { event ->
