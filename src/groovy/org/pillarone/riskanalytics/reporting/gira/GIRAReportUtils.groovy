@@ -82,6 +82,11 @@ class GIRAReportUtils {
         return simulation.name
     }
 
+    static String parseModelName(String modelName) {
+        if (!modelName) return ""
+        return modelName.endsWith("Model") ? modelName.substring(0, modelName.indexOf("Model")) : modelName
+    }
+
     public static double maxYValue(List xyPairs) {
         if (!xyPairs || xyPairs.size() == 0) return 1.0
         double max = xyPairs[0][1]

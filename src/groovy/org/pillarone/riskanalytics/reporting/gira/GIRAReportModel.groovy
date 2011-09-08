@@ -23,8 +23,8 @@ class GIRAReportModel implements IReportModel {
         if(!simulation.isLoaded()) {
             simulation.load()
         }
-
-        ResultPathParser parser = new ResultPathParser(GIRAModel.simpleName, ResultAccessor.getPaths(simulation.getSimulationRun()))
+        String modelName = GIRAReportUtils.parseModelName(GIRAModel.simpleName)
+        ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getPaths(simulation.getSimulationRun()))
         ChartDataSourceFactory factory = new ChartDataSourceFactory(simulation, parser)
 
         List currentValues = []
