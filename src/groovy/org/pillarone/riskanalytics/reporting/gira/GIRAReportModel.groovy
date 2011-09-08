@@ -10,7 +10,7 @@ import models.gira.GIRAModel
 import org.pillarone.riskanalytics.core.user.UserManagement
 import org.pillarone.riskanalytics.core.user.Person
 import org.pillarone.riskanalytics.core.report.ReportFactory
-import org.pillarone.riskanalytics.application.reports.JasperChartUtils
+import org.pillarone.riskanalytics.reporting.gira.JasperChartUtils
 import org.pillarone.riskanalytics.application.ui.util.UIUtils
 
 class GIRAReportModel implements IReportModel {

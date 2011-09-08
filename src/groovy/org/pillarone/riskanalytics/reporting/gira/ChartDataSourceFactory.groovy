@@ -2,7 +2,7 @@ package org.pillarone.riskanalytics.reporting.gira
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource
-import org.pillarone.riskanalytics.application.reports.JasperChartUtils
+import org.pillarone.riskanalytics.reporting.gira.JasperChartUtils
 import org.pillarone.riskanalytics.application.ui.util.SeriesColor
 import org.pillarone.riskanalytics.application.ui.util.UIUtils
 import org.pillarone.riskanalytics.application.util.JEstimator
