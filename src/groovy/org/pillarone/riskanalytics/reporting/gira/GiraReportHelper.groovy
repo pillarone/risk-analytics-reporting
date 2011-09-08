@@ -18,7 +18,6 @@ import org.pillarone.riskanalytics.application.ui.util.DateFormatUtils
 import org.pillarone.riskanalytics.application.reports.comment.action.CommentReportAction
 import org.pillarone.riskanalytics.application.ui.comment.view.NewCommentView
 import org.pillarone.riskanalytics.application.ui.result.model.ResultViewUtils
-import org.pillarone.riskanalytics.application.reports.ReportFactory
 import org.pillarone.riskanalytics.application.util.LocaleResources
 
 /**
@@ -118,7 +117,7 @@ class GiraReportHelper {
     static String getFooter() {
         StringBuilder sb = new StringBuilder()
         Person currentUser = UserManagement.getCurrentUser()
-        sb.append(currentUser ? UIUtils.getText(ReportFactory.class, "footerByUser", [currentUser.username]) : UIUtils.getText(ReportFactory.class, "footer"))
+        sb.append(currentUser ? UIUtils.getText(GiraReportHelper.class, "footerByUser", [currentUser.username]) : UIUtils.getText(GiraReportHelper.class, "footer"))
         sb.append(" " + DateFormatUtils.formatDetailed(new DateTime()))
         return sb.toString()
     }

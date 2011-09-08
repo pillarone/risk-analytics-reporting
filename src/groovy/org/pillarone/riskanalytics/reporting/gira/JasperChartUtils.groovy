@@ -12,7 +12,6 @@ import org.jfree.chart.plot.PlotOrientation
 import org.jfree.chart.renderer.category.BarRenderer
 import org.jfree.chart.renderer.category.WaterfallBarRenderer
 import org.jfree.data.category.DefaultCategoryDataset
-import org.pillarone.riskanalytics.application.reports.bean.PropertyValuePairBean
 import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import org.pillarone.riskanalytics.application.ui.util.DateFormatUtils
 import org.jfree.data.xy.XYSeries

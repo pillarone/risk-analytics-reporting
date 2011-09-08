@@ -80,7 +80,7 @@ class GIRAReportModel implements IReportModel {
         params["infos"] = GIRAReportUtils.getItemInfo(simulation)
         Person currentUser = UserManagement.getCurrentUser()
         params["currentUser"] = currentUser ? currentUser.username : ""
-        params["itemInfo"] = UIUtils.getText(ReportFactory.class, Simulation.simpleName + "Info")
+        params["itemInfo"] = UIUtils.getText(GiraReportHelper.class, Simulation.simpleName + "Info")
         params["_file"] = "GiraReport"
         params["SUBREPORT_DIR"] = getClass().getResource("/reports/gira")
         params["Comment"] = "Comment"
