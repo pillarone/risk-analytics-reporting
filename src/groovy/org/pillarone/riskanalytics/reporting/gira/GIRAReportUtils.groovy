@@ -16,7 +16,8 @@ import org.pillarone.riskanalytics.core.simulation.item.Parameterization
  */
 class GIRAReportUtils {
 
-    public static final List FIELD_NAMES = ["ultimate", "paidIncremental", "reserves"]
+    public static final List FIELD_NAMES = ["ultimate", "paidIncrementalIndexed", "reservesIndexed"]
+
 
     public static void addList(Map target, Object key, List values) {
         if (values && values.size() > 0) {

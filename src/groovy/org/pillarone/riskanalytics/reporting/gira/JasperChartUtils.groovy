@@ -45,7 +45,7 @@ class JasperChartUtils {
                 true,
                 false
         )
-        chart.setBackgroundPaint(Color.WHITE)
+        setBackground(chart, Color.WHITE)
         WaterfallBarRenderer renderer = (BarRenderer) chart.getPlot().getRenderer();
         renderer.firstBarPaint = seriesColor[0]
         renderer.positiveBarPaint = seriesColor[0]
@@ -60,6 +60,7 @@ class JasperChartUtils {
     public static JCommonDrawableRenderer generatePDFChart(Map seriesMap, Map colorsMap) {
         XYSeriesCollection dataset = new XYSeriesCollection();
         JFreeChart chart = ChartFactory.createXYLineChart("", "[in currency units]", "", dataset, PlotOrientation.VERTICAL, true, true, false);
+        setBackground(chart, Color.WHITE)
         int seriesIndex = 0
         List maxYs = []
         seriesMap.each {String title, List xyPairs ->
@@ -79,7 +80,6 @@ class JasperChartUtils {
 
         double yMaxValue = ReportUtils.getMaxValue(maxYs)
         chart.getXYPlot().getRangeAxis().setRange(0.0, yMaxValue + (0.1 * yMaxValue))
-        chart.setBackgroundPaint(Color.WHITE)
         chart.setTitle(new TextTitle("Probabillity Density (Adaptive Gauss Kernel Estimate)", new Font("Verdana", Font.PLAIN, 10)))
         LegendTitle legend = chart.getLegend();
         legend.setPosition(RectangleEdge.BOTTOM);
@@ -112,5 +112,11 @@ class JasperChartUtils {
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(currentValues);
         return jrBeanCollectionDataSource
 
+    }
+
+    private static void setBackground(JFreeChart chart, Color color) {
+        chart.setBackgroundPaint(color);
+        chart.getPlot().setBackgroundPaint(color);
+        chart.getPlot().setRangeGridlinePaint(Color.lightGray);
     }
 }
