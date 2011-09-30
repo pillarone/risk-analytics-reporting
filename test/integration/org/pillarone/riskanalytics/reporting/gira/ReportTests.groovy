@@ -25,6 +25,6 @@ class ReportTests extends GroovyTestCase {
         simulation.save()
 
 //        todo(sku): not working on server due to missing fonts, https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1858
-//        ReportFactory.createPDFReport(new GIRAReportModel(), simulation)
+//        ReportFactory.createPDFReport(new GIRAReportModel(), new ModellingItemReportData(simulation))
     }
 }

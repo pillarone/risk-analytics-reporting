@@ -1,31 +1,31 @@
 package org.pillarone.riskanalytics.reporting.gira
 
-import org.pillarone.riskanalytics.core.report.IReportModel
+import models.gira.GIRAModel
 import net.sf.jasperreports.engine.JRDataSource
-import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource
-import org.pillarone.riskanalytics.core.dataaccess.ResultAccessor
-import models.gira.GIRAModel
-import org.pillarone.riskanalytics.core.user.UserManagement
-import org.pillarone.riskanalytics.core.user.Person
-import org.pillarone.riskanalytics.core.report.ReportFactory
-import org.pillarone.riskanalytics.reporting.gira.JasperChartUtils
 import org.pillarone.riskanalytics.application.ui.util.UIUtils
+import org.pillarone.riskanalytics.core.dataaccess.ResultAccessor
+import org.pillarone.riskanalytics.core.report.IReportData
+import org.pillarone.riskanalytics.core.report.IReportModel
+import org.pillarone.riskanalytics.core.simulation.item.Simulation
+import org.pillarone.riskanalytics.core.user.Person
+import org.pillarone.riskanalytics.core.user.UserManagement
+import org.pillarone.riskanalytics.core.report.ReportUtils
 
 class GIRAReportModel implements IReportModel {
 
     private static final String NAME = "GIRA Report"
 
 
-    JRDataSource getDataSource(Simulation simulation) {
+    JRDataSource getDataSource(IReportData reportData) {
+        Simulation simulation = ReportUtils.getSingleSimulation(reportData)
 
         if(!simulation.isLoaded()) {
             simulation.load()
         }
         String modelName = GIRAReportUtils.parseModelName(GIRAModel.simpleName)
         ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getPaths(simulation.getSimulationRun()))
-        ChartDataSourceFactory factory = new ChartDataSourceFactory(simulation, parser)
 
         List currentValues = []
         for (Map.Entry<PathType, List<List<String>>> entry in getPaths(parser).entrySet()) {
@@ -35,7 +35,7 @@ class GIRAReportModel implements IReportModel {
             Map map = [:]
             List<ReportWaterfallDataBean> beans = AbstractWaterfallChart.getInstance(pathType, simulation, parser).getBeans(parser.getPathsByPathType(componentPaths, pathType))
             JRMapCollectionDataSource waterfallDataSource = GIRAReportUtils.getRendererDataSource("waterfallChart", JasperChartUtils.generateWaterfallChart(beans))
-            map["PDFCharts"] = factory.getPDFChartsDataSource(componentPaths, waterfallDataSource, pathType)
+            map["PDFCharts"] = new ChartDataSourceFactory(simulation, parser).getPDFChartsDataSource(componentPaths, waterfallDataSource, pathType)
             currentValues << map
         }
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(currentValues);
@@ -72,9 +72,10 @@ class GIRAReportModel implements IReportModel {
         ]
     }
 
-    Map getParameters(Simulation simulation) {
+    Map getParameters(IReportData reportData) {
+        Simulation simulation = ReportUtils.getSingleSimulation(reportData)
         Map params = new HashMap()
-        params["charts"] = getDataSource(simulation)
+        params["charts"] = getDataSource(reportData)
         params["title"] = "Example Report"
         params["footer"] = GiraReportHelper.getFooter()
         params["infos"] = GIRAReportUtils.getItemInfo(simulation)
@@ -88,6 +89,12 @@ class GIRAReportModel implements IReportModel {
         params["p1Logo"] = getClass().getResource(UIUtils.ICON_DIRECTORY + "pillarone-logo-transparent-background-report.png")
         return params
     }
+
+    String getDefaultReportFileNameWithoutExtension(IReportData reportData) {
+        Simulation simulation = ReportUtils.getSingleSimulation(reportData)
+        return "${name} of ${simulation.name}"
+    }
+
 
 
 }
