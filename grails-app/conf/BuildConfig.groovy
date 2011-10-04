@@ -25,7 +25,7 @@ grails.project.dependency.resolution = {
         test ":code-coverage:1.2.4"
 
         if (appName == "risk-analytics-reporting") {
-            runtime "org.pillarone:risk-analytics-core:1.4-BETA-8"
+            runtime "org.pillarone:risk-analytics-core:1.4-BETA-9"
             runtime ("org.pillarone:risk-analytics-application:1.4-BETA-8.1") { transitive = false }
             runtime ("org.pillarone:risk-analytics-pc-cashflow:0.1.15") { transitive = false }
             runtime ("org.pillarone:risk-analytics-commons:0.1.25") { transitive = false }
@@ -73,3 +73,5 @@ coverage {
     ]
 
 }
+reportFolders = [new File("./src/java/reports/gira")]
+
