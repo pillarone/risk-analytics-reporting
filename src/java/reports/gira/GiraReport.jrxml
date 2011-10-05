@@ -8,22 +8,22 @@
     <import value="java.util.Date"/>
     <import value="java.text.SimpleDateFormat"/>
     <import value="net.sf.jasperreports.engine.data.JRMapCollectionDataSource"/>
-    <reportFont name="Verdana10" isDefault="false" fontName="Verdana" size="10" isBold="false" isItalic="false"
+    <reportFont name="Vera10" isDefault="false" fontName="Bitstream Vera" size="10" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana9" isDefault="false" fontName="Verdana" size="9" isBold="false" isItalic="false"
+    <reportFont name="Vera9" isDefault="false" fontName="Bitstream Vera" size="9" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana12b" isDefault="false" fontName="Verdana" size="12" isBold="true" isItalic="false"
+    <reportFont name="Vera12b" isDefault="false" fontName="Bitstream Vera" size="12" isBold="true" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdanab.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana20" isDefault="false" fontName="Verdana" size="20" isBold="false" isItalic="false"
+    <reportFont name="Vera20" isDefault="false" fontName="Bitstream Vera" size="20" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana24" isDefault="false" fontName="Verdana" size="24" isBold="false" isItalic="false"
+    <reportFont name="Vera24" isDefault="false" fontName="Bitstream Vera" size="24" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana36" isDefault="false" fontName="Verdana" size="36" isBold="false" isItalic="false"
+    <reportFont name="Vera36" isDefault="false" fontName="Bitstream Vera" size="36" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
 
@@ -62,7 +62,7 @@
             <staticText>
                 <reportElement x="145" y="220" width="360" height="30"/>
                 <textElement>
-                    <font reportFont="Verdana24"/>
+                    <font reportFont="Vera24"/>
                 </textElement>
                 <text><![CDATA[Claims Generators]]></text>
             </staticText>
@@ -70,7 +70,7 @@
             <staticText>
                 <reportElement x="145" y="280" width="360" height="30"/>
                 <textElement>
-                    <font reportFont="Verdana24"/>
+                    <font reportFont="Vera24"/>
                 </textElement>
                 <text><![CDATA[Reserve Generators (todo)]]></text>
             </staticText>
@@ -78,7 +78,7 @@
             <staticText>
                 <reportElement x="145" y="340" width="360" height="30"/>
                 <textElement>
-                    <font reportFont="Verdana24"/>
+                    <font reportFont="Vera24"/>
                 </textElement>
                 <text><![CDATA[Segments (todo)]]></text>
             </staticText>
@@ -86,7 +86,7 @@
             <staticText>
                 <reportElement x="145" y="400" width="360" height="30"/>
                 <textElement>
-                    <font reportFont="Verdana24"/>
+                    <font reportFont="Vera24"/>
                 </textElement>
                 <text><![CDATA[Reinsurances]]></text>
             </staticText>
@@ -119,7 +119,7 @@
                         key="staticText-42">
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font reportFont="Verdana12b"/>
+                    <font reportFont="Vera12b"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String">
                     <![CDATA[$P{ReturnedValuesMap}.get("pageTitle")]]></textFieldExpression>
@@ -171,7 +171,7 @@
                         key="textField-1"/>
                 <box></box>
                 <textElement>
-                    <font reportFont="Verdana9"/>
+                    <font reportFont="Vera9"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String">
                     <![CDATA[$P{footer}]]>
@@ -188,7 +188,7 @@
                         key="textField"/>
                 <box></box>
                 <textElement textAlignment="Right">
-                    <font reportFont="Verdana9"/>
+                    <font reportFont="Vera9"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER} + "/"]]></textFieldExpression>
             </textField>
@@ -203,7 +203,7 @@
                         key="textField"/>
                 <box></box>
                 <textElement>
-                    <font reportFont="Verdana9"/>
+                    <font reportFont="Vera9"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String">
                     <![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>

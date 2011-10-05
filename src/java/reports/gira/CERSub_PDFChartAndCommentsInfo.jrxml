@@ -10,7 +10,7 @@
     <import value="net.sf.jasperreports.engine.*"/>
     <import value="net.sf.jasperreports.engine.data.*"/>
 
-    <reportFont name="Verdana10" isDefault="false" fontName="Verdana" size="10" isBold="false" isItalic="false"
+    <reportFont name="Vera10" isDefault="false" fontName="Bitstream Vera" size="10" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
 

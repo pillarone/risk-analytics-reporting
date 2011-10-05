@@ -3,3 +3,4 @@ target/*
 web-app/plugins/*
 *.iml
 *.log
+*.jasper

@@ -7,16 +7,16 @@
 
     <import value="java.util.Date"/>
     <import value="java.text.SimpleDateFormat"/>
-    <reportFont name="Verdana10" isDefault="false" fontName="Verdana" size="10" isBold="false" isItalic="false"
+    <reportFont name="Vera10" isDefault="false" fontName="Bitstream Vera" size="10" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana9" isDefault="false" fontName="Verdana" size="9" isBold="false" isItalic="false"
+    <reportFont name="Vera9" isDefault="false" fontName="Bitstream Vera" size="9" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana12b" isDefault="false" fontName="Verdana" size="12" isBold="true" isItalic="false"
+    <reportFont name="Vera12b" isDefault="false" fontName="Bitstream Vera" size="12" isBold="true" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdanab.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
-    <reportFont name="Verdana20" isDefault="false" fontName="Verdana" size="20" isBold="false" isItalic="false"
+    <reportFont name="Vera20" isDefault="false" fontName="Bitstream Vera" size="20" isBold="false" isItalic="false"
                 isUnderline="false" isStrikeThrough="false" pdfFontName="verdana.ttf" pdfEncoding="Cp1250"
                 isPdfEmbedded="true"/>
     <style name="title" fontSize="12"/>

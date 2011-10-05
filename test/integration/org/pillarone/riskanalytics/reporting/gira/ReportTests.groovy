@@ -7,6 +7,7 @@ import org.pillarone.riskanalytics.core.fileimport.FileImportService
 import org.pillarone.riskanalytics.application.dataaccess.item.ModellingItemFactory
 import org.pillarone.riskanalytics.core.ParameterizationDAO
 import org.pillarone.riskanalytics.core.output.ResultConfigurationDAO
+import org.pillarone.riskanalytics.core.report.impl.ModellingItemReportData
 
 
 class ReportTests extends GroovyTestCase {
@@ -24,7 +25,6 @@ class ReportTests extends GroovyTestCase {
         simulation.numberOfIterations = 100
         simulation.save()
 
-//        todo(sku): not working on server due to missing fonts, https://issuetracking.intuitive-collaboration.com/jira/browse/PMO-1858
-//        ReportFactory.createPDFReport(new GIRAReportModel(), new ModellingItemReportData(simulation))
+        ReportFactory.createPDFReport(new GIRAReportModel(), new ModellingItemReportData(simulation))
     }
 }

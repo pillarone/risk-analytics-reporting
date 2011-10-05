@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+    <fontFamily name="Bitstream Vera">
+        <normal>reports/gira/fonts/Vera.ttf</normal>
+        <bold>reports/gira/fonts/VeraBd.ttf</bold>
+        <italic>reports/gira/fonts/VeraIt.ttf</italic>
+        <boldItalic>reports/gira/fonts/VeraBI.ttf</boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+    </fontFamily>
+</fontFamilies>
