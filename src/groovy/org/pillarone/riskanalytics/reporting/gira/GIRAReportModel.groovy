@@ -20,7 +20,7 @@ class GIRAReportModel implements IReportModel {
 
 
     JRDataSource getDataSource(IReportData reportData) {
-        Simulation simulation = ReportUtils.getSingleSimulation(reportData)
+        Simulation simulation = (Simulation)ReportUtils.getSingleModellingItem(reportData)
 
         if(!simulation.isLoaded()) {
             simulation.load()
@@ -61,7 +61,7 @@ class GIRAReportModel implements IReportModel {
     }
 
     Map getParameters(IReportData reportData) {
-        Simulation simulation = ReportUtils.getSingleSimulation(reportData)
+        Simulation simulation = (Simulation)ReportUtils.getSingleModellingItem(reportData)
         Map params = new HashMap()
         params["charts"] = getDataSource(reportData)
         params["title"] = "Example Report"
@@ -79,11 +79,11 @@ class GIRAReportModel implements IReportModel {
     }
 
     String getDefaultReportFileNameWithoutExtension(IReportData reportData) {
-        Simulation simulation = ReportUtils.getSingleSimulation(reportData)
+        Simulation simulation = (Simulation)ReportUtils.getSingleModellingItem(reportData)
         return "${name} of ${simulation.name}"
     }
 
     boolean isValidFormatAndData(ReportFactory.ReportFormat reportFormat, IReportData reportData) {
-        ReportUtils.isSingleItem(reportData, Simulation)
+        ReportUtils.isSingleItem(reportData, reportData)
     }
 }
