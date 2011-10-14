@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import org.pillarone.riskanalytics.core.user.Person
 import org.pillarone.riskanalytics.core.user.UserManagement
 import org.pillarone.riskanalytics.core.report.ReportUtils
+import org.pillarone.riskanalytics.core.report.ReportFactory
 
 class GIRAReportModel implements IReportModel {
 
@@ -82,6 +83,7 @@ class GIRAReportModel implements IReportModel {
         return "${name} of ${simulation.name}"
     }
 
-
-
+    boolean isValidFormatAndData(ReportFactory.ReportFormat reportFormat, IReportData reportData) {
+        ReportUtils.isSingleItem(reportData, Simulation)
+    }
 }
