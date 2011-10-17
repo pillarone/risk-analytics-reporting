@@ -84,6 +84,6 @@ class GIRAReportModel implements IReportModel {
     }
 
     boolean isValidFormatAndData(ReportFactory.ReportFormat reportFormat, IReportData reportData) {
-        ReportUtils.isSingleItem(reportData, reportData)
+        ReportUtils.isSingleItem(reportData, Simulation)
     }
 }
