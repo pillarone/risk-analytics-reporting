@@ -20,6 +20,7 @@ abstract class AbstractWaterfallChart {
         String parent = paths[0]
         int periodIndex = 0
         double sum = 0
+        // create a ReportWaterfallDataBean for each column within the waterfall chart using the 95% as value and the path as name
         paths.eachWithIndex {String path, int index ->
             if (!parser.isParentPath(path)) {
                 try {
@@ -32,7 +33,9 @@ abstract class AbstractWaterfallChart {
         }
 
         totalValue =  evaluate(simulation.getSimulationRun(), periodIndex, parent, AggregatedCollectingModeStrategy.IDENTIFIER, "ultimate")
+        // diversification effect
         addDivDataBean(beans, totalValue - sum)
+        // total var
         addTotalDataBean(beans, totalValue)
         return beans
     }

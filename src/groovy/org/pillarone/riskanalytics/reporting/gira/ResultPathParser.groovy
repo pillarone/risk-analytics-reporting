@@ -66,7 +66,11 @@ class ResultPathParser {
         return results
     }
 
-
+    /**
+     * @param paths
+     * @param pathType
+     * @return paths extended with the field
+     */
     List<String> getPathsByPathType(List<List<String>> paths, PathType pathType) {
         List<String> suffixPaths = []
         String suffix = PathType.CLAIMSGENERATORS == pathType ? CLAIMS : CLAIMS_CEDED

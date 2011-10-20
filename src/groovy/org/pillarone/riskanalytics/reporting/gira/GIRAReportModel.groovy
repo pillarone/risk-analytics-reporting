@@ -43,6 +43,11 @@ class GIRAReportModel implements IReportModel {
         return jrBeanCollectionDataSource
     }
 
+    /**
+     * @param parser
+     * @return PathType relates to the component (claims generator, reinsurance contract, ...)
+     *          the nested list contains all out channels (inner list) per component (outer list)
+     */
     protected Map<PathType, List<List<String>>> getPaths(ResultPathParser parser) {
         Map result = [:]
         IPathFilter claimsFilter = PathFilter.getFilter(parser.getComponentPath(PathType.CLAIMSGENERATORS), ResultPathParser.CLAIMS_SUFFIX_LIST)

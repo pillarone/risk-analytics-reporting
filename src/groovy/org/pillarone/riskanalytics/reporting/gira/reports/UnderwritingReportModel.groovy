@@ -39,10 +39,6 @@ public class UnderwritingReportModel implements IReportModel {
 
         Parameterization parameterization = (Parameterization) ReportUtils.getSingleModellingItem(reportData)
 
-        if (!parameterization.isLoaded()) {
-            parameterization.load(true)
-        }
-
         GIRAModel model = new GIRAModel()
         GIRAParameterReportingUtils.initModelForParameterReporting(model, parameterization)
 
