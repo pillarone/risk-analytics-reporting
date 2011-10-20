@@ -8,6 +8,9 @@ import org.pillarone.riskanalytics.application.dataaccess.item.ModellingItemFact
 import org.pillarone.riskanalytics.core.ParameterizationDAO
 import org.pillarone.riskanalytics.core.output.ResultConfigurationDAO
 import org.pillarone.riskanalytics.core.report.impl.ModellingItemReportData
+import org.pillarone.riskanalytics.core.simulation.item.Parameterization
+import org.pillarone.riskanalytics.reporting.gira.reports.UnderwritingReportModel
+import org.pillarone.riskanalytics.core.report.IReportData
 
 
 class ReportTests extends GroovyTestCase {
@@ -16,7 +19,7 @@ class ReportTests extends GroovyTestCase {
         FileImportService.importModelsIfNeeded(['GIRA'])
     }
 
-    void testCreateReport() {
+    void testCreateGIRAReport() {
         Simulation simulation = new Simulation("simulation")
         simulation.modelClass = GIRAModel
         simulation.parameterization = ModellingItemFactory.getParameterization(ParameterizationDAO.findByName("Developed Claims"))
@@ -27,4 +30,14 @@ class ReportTests extends GroovyTestCase {
 
         ReportFactory.createPDFReport(new GIRAReportModel(), new ModellingItemReportData(simulation))
     }
+
+    void testCreateUnderwritingReport() {
+        Parameterization parameterization = ModellingItemFactory.getParameterization(ParameterizationDAO.findByName("Multi Company"))
+
+        IReportData reportData = new ModellingItemReportData(parameterization)
+        byte[] report = ReportFactory.createPDFReport(new UnderwritingReportModel(), reportData)
+//        // todo(sku): ask msp how to modify functionality in CreateReportAction.saveReport
+//        saveReport(report, reportData)
+    }
+
 }

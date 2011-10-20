@@ -1,6 +1,7 @@
 import org.pillarone.riskanalytics.core.report.ReportRegistry
 import models.gira.GIRAModel
 import org.pillarone.riskanalytics.reporting.gira.GIRAReportModel
+import org.pillarone.riskanalytics.reporting.gira.reports.UnderwritingReportModel
 
 class RiskAnalyticsReportingGrailsPlugin {
     // the plugin version
@@ -42,6 +43,7 @@ Brief description of the plugin.
 
     def doWithApplicationContext = { applicationContext ->
         ReportRegistry.registerReportModel(GIRAModel, new GIRAReportModel())
+        ReportRegistry.registerReportModel(GIRAModel, new UnderwritingReportModel())
     }
 
     def onChange = { event ->

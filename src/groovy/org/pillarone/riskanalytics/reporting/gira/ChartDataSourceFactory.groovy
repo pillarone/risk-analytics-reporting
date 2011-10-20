@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.core.output.QuantilePerspective
 import org.pillarone.riskanalytics.core.output.SimulationRun
 import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import static org.pillarone.riskanalytics.reporting.gira.GiraReportHelper.format
+import org.pillarone.riskanalytics.reporting.gira.GIRAReportModel
 
 /**
  * @author fouad.jaada@intuitive-collaboration.com
