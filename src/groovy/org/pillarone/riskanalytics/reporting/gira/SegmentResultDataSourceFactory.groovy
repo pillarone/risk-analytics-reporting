@@ -48,6 +48,7 @@ class SegmentResultDataSourceFactory {
             valuesBean = new MeanStDevVaR200yCValuesBean(reportHelper.getSimulationRun(), resultAccessorInformation.collector)
             String path = resultAccessorInformation.path
             for (String fieldName : resultAccessorInformation.fields) {
+                if (fieldName.equals('premiumWritten')) continue
                 currentValues << [
                     'rowLabel': resultAccessorInformation.descriptor,
                     'meanValue': format(valuesBean.getMean(path, fieldName, periodIndex)),

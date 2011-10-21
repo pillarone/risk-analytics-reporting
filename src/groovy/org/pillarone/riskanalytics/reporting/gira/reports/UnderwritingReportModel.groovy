@@ -12,6 +12,7 @@ import org.pillarone.riskanalytics.core.simulation.item.Parameterization
 import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import org.pillarone.riskanalytics.reporting.gira.databeans.ClaimsGeneratorBean
 import org.pillarone.riskanalytics.reporting.gira.*
+import org.pillarone.riskanalytics.reporting.gira.databeans.UnderwritingInfoBean
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com

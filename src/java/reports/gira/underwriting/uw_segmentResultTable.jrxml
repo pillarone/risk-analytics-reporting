@@ -7,8 +7,8 @@
 		<box topPadding="5"/>
 	</style>
 	<style name="tableTitle" fontSize="10" isBold="true"/>
-    <field name="segmentName" class="java.lang.String"/>
-    <field name="totalPremium" class="java.lang.String"/>
+	<field name="segmentName" class="java.lang.String"/>
+	<field name="totalPremium" class="java.lang.String"/>
 	<field name="rowLabel" class="java.lang.String"/>
 	<field name="meanValue" class="java.lang.String"/>
 	<field name="meanRatio" class="java.lang.String"/>
@@ -19,67 +19,67 @@
 	<field name="200yearValue" class="java.lang.String"/>
 	<field name="200yearRatio" class="java.lang.String"/>
 	<title>
-		<band height="80" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<staticText>
-				<reportElement style="tableTitle" x="120" y="40" width="107" height="20"/>
+				<reportElement style="tableTitle" x="120" y="60" width="107" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Mean]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="79" width="680" height="1"/>
+				<reportElement x="1" y="99" width="680" height="1" forecolor="#999999"/>
 			</line>
 			<staticText>
-				<reportElement style="tableTitle" x="120" y="60" width="107" height="20"/>
+				<reportElement style="tableTitle" x="120" y="80" width="107" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Absolute]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="tableTitle" x="227" y="60" width="33" height="20"/>
+				<reportElement style="tableTitle" x="227" y="80" width="33" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Ratio]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="tableTitle" x="260" y="40" width="107" height="20"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Standard Deviation]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="tableTitle" x="392" y="41" width="107" height="20"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[VaR 99.5]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="tableTitle" x="534" y="40" width="107" height="20"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[200 year claim]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="tableTitle" x="260" y="60" width="107" height="20"/>
 				<textElement textAlignment="Right"/>
-				<text><![CDATA[Absolute]]></text>
+				<text><![CDATA[Standard Deviation]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="tableTitle" x="392" y="60" width="107" height="20"/>
+				<reportElement style="tableTitle" x="392" y="61" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[VaR 99.5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="534" y="60" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[200 year claim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="260" y="80" width="107" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Absolute]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="tableTitle" x="532" y="60" width="107" height="20"/>
+				<reportElement style="tableTitle" x="392" y="80" width="107" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Absolute]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="tableTitle" x="366" y="60" width="33" height="20"/>
+				<reportElement style="tableTitle" x="532" y="80" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Absolute]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="366" y="80" width="33" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Ratio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="tableTitle" x="499" y="60" width="33" height="20"/>
+				<reportElement style="tableTitle" x="499" y="80" width="33" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Ratio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="tableTitle" x="641" y="60" width="33" height="20"/>
+				<reportElement style="tableTitle" x="641" y="80" width="33" height="20"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Ratio]]></text>
 			</staticText>
@@ -98,6 +98,21 @@
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalPremium}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="119" y="60" width="1" height="40" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="259" y="60" width="1" height="40" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="539" y="60" width="1" height="40" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="400" y="60" width="1" height="40" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="0" y="61" width="680" height="1" forecolor="#999999"/>
+			</line>
 		</band>
 	</title>
 	<detail>
@@ -148,23 +163,23 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{200yearRatio}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="120" y="0" width="1" height="20"/>
+				<reportElement x="120" y="0" width="1" height="20" forecolor="#999999"/>
 			</line>
 			<line>
-				<reportElement x="260" y="0" width="1" height="20"/>
+				<reportElement x="260" y="0" width="1" height="20" forecolor="#999999"/>
 			</line>
 			<line>
-				<reportElement x="540" y="0" width="1" height="20"/>
+				<reportElement x="540" y="0" width="1" height="20" forecolor="#999999"/>
 			</line>
 			<line>
-				<reportElement x="401" y="0" width="1" height="20"/>
+				<reportElement x="401" y="0" width="1" height="20" forecolor="#999999"/>
 			</line>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="2">
 			<line>
-				<reportElement x="1" y="0" width="680" height="1"/>
+				<reportElement x="1" y="0" width="680" height="1" forecolor="#999999"/>
 			</line>
 		</band>
 	</columnFooter>
