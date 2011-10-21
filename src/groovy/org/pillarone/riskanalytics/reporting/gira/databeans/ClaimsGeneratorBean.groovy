@@ -4,7 +4,7 @@ package org.pillarone.riskanalytics.reporting.gira.databeans;
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 // todo(rpa): how to handle distributions defined in a table?
-public class ClaimsGeneratorBean {
+public class ClaimsGeneratorBean implements Comparable<ClaimsGeneratorBean> {
 
     String perilName
     String claimType
@@ -22,6 +22,7 @@ public class ClaimsGeneratorBean {
     String severityDistributionValue1
     String severityDistributionValue2
     String severityDistributionValue3
+    String severityDistributionModification
 
     String claimTypeLabel = "Claim Type"
     String relevantPortionLabel = "Relevant Portion"
@@ -31,6 +32,10 @@ public class ClaimsGeneratorBean {
 
     public Boolean hasFrequencyDistribution() {
         frequencyDistribution != null
+    }
+
+    int compareTo(ClaimsGeneratorBean o) {
+        return perilName.compareTo(o.perilName)
     }
 
 }

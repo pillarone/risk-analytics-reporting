@@ -51,8 +51,8 @@
     <parameter name="PARAMETERIZATION_NAME" isForPrompting="false" class="java.lang.String"/>
     <parameter name="P14N_VERSION" isForPrompting="false" class="java.lang.String"/>
 
+    <parameter name="UW_SEGMENTS"  isForPrompting="false" class="net.sf.jasperreports.engine.data.JRAbstractBeanDataSource"/>
     <parameter name="CLAIMS_GENERATORS"  isForPrompting="false" class="net.sf.jasperreports.engine.data.JRAbstractBeanDataSource"/>
-    <!--<parameter name="SEGMENTS"  isForPrompting="false" class="net.sf.jasperreports.engine.data.JRAbstractBeanDataSource"/>-->
     <!--<parameter name="REINSURANCE_CONTRACTS"  isForPrompting="false" class="net.sf.jasperreports.engine.data.JRAbstractBeanDataSource"/>-->
 
     <title>
@@ -145,7 +145,30 @@
                             x="0"
                             y="0"
                             width="500"
-                            height="450"
+                            height="60"
+                            key="subreport-24"/>
+                    <subreportParameter name="SUBREPORT_DIR">
+                        <subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+                    </subreportParameter>
+                    <!--<subreportParameter name="ReturnedValuesMap">-->
+                        <!--<subreportParameterExpression>-->
+                            <!--$P{ReturnedValuesMap}-->
+                        <!--</subreportParameterExpression>-->
+                    <!--</subreportParameter>-->
+
+                    <dataSourceExpression>
+                        <![CDATA[$P{UW_SEGMENTS}]]></dataSourceExpression>
+
+                    <subreportExpression class="java.net.URL">
+                        <![CDATA[new java.net.URL($P{SUBREPORT_DIR}.toExternalForm() + "/uw_information.jasper")]]></subreportExpression>
+                </subreport>
+                 <subreport isUsingCache="true">
+                    <reportElement
+                            positionType="Float"
+                            x="0"
+                            y="60"
+                            width="500"
+                            height="390"
                             key="subreport-24"/>
                     <subreportParameter name="SUBREPORT_DIR">
                         <subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>

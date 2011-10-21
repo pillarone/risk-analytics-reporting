@@ -9,10 +9,9 @@ import org.pillarone.riskanalytics.core.report.ReportFactory
 import org.pillarone.riskanalytics.core.report.ReportUtils
 import org.pillarone.riskanalytics.core.simulation.item.Parameterization
 import org.pillarone.riskanalytics.reporting.gira.GIRAParameterReportingUtils
-import org.pillarone.riskanalytics.reporting.gira.databeans.ReinsuranceContractBean
-import org.pillarone.riskanalytics.reporting.gira.databeans.SegmentBean
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource
 import org.pillarone.riskanalytics.reporting.gira.databeans.ClaimsGeneratorBean
+import org.pillarone.riskanalytics.reporting.gira.databeans.UnderwritingInfoBean
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -42,16 +41,15 @@ public class UnderwritingReportModel implements IReportModel {
         GIRAModel model = new GIRAModel()
         GIRAParameterReportingUtils.initModelForParameterReporting(model, parameterization)
 
-        List<ClaimsGeneratorBean> claimsGeneratorBeans = GIRAParameterReportingUtils.getClaimsGenerators(model);
+        List<ClaimsGeneratorBean> claimsGeneratorBeans = GIRAParameterReportingUtils.getClaimsGenerators(model)
         JRBeanCollectionDataSource claimsGeneratorsDataSource = new JRBeanCollectionDataSource(claimsGeneratorBeans)
 
-//        List<SegmentBean> segmentBeans = GIRAParameterReportingUtils.getSegments(model);
-//        JRBeanCollectionDataSource segmentsDataSource = new JRBeanCollectionDataSource(segmentBeans)
+        List<UnderwritingInfoBean> underwritingInfoBeans = GIRAParameterReportingUtils.getUnderwritingInformation(model);
+        JRBeanCollectionDataSource underwritingInfoDataSource = new JRBeanCollectionDataSource(underwritingInfoBeans)
 //
 //        List<ReinsuranceContractBean> reinsuranceContractBeans = GIRAParameterReportingUtils.getReinsuranceContracts(model)
 //        JRBeanCollectionDataSource reinsuranceContractsDataSource = new JRBeanCollectionDataSource(reinsuranceContractBeans)
 
-//        Populate parameter map with information
         [
                 "SUBREPORT_DIR": getClass().getResource(reportDirectory),
                 "LOGO_DIR": getClass().getResource(reportDirectory),
@@ -59,8 +57,8 @@ public class UnderwritingReportModel implements IReportModel {
                 "PARAMETERIZATION_NAME": parameterization.getName(),
                 "P14N_VERSION": "v" + parameterization.versionNumber.toString(),
 
+                "UW_SEGMENTS": underwritingInfoDataSource,
                 "CLAIMS_GENERATORS": claimsGeneratorsDataSource,
-//                "SEGMENTS": segmentsDataSource,
 //                "REINSURANCE_CONTRACTS": reinsuranceContractsDataSource
 
         ]

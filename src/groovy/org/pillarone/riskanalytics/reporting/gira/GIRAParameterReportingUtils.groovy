@@ -37,22 +37,28 @@ public class GIRAParameterReportingUtils {
             int columnIndexAverageSumInsured = tableUWInfo.getColumnIndex(RiskBands.AVERAGE_SUM_INSURED)
             int columnIndexPremium = tableUWInfo.getColumnIndex(RiskBands.PREMIUM)
             int columnIndexNumberOfPolicies = tableUWInfo.getColumnIndex(RiskBands.NUMBER_OF_POLICIES)
-
-            for (int row = tableUWInfo.getTitleColumnCount(); row < tableRowCount; row++) {
-                double premium = InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexPremium))
-                double numberOfPolicies = InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexNumberOfPolicies))
-                double maxSumInsured = InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexMaxSumInsured))
-                double averageSumInsured = InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexAverageSumInsured))
-
-                UnderwritingInfoBean bean = new UnderwritingInfoBean(
-                        underwritingSegmentName: segmentName,
-                        premium: premium,
-                        numberOfPolicies: numberOfPolicies,
-                        maxSumInsured: maxSumInsured,
-                        averageSumInsured: averageSumInsured)
-                underwritingInformationBeans << bean
+            Double premium = 0
+            Double numberOfPolicies = 0
+            Double maxSumInsured = 0
+            Double averageSumInsured = 0
+            for (int row = tableUWInfo.getTitleRowCount(); row <= tableRowCount; row++) {
+                premium += InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexPremium))
+                numberOfPolicies += InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexNumberOfPolicies))
+                maxSumInsured += InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexMaxSumInsured))
+                averageSumInsured += InputFormatConverter.getDouble(tableUWInfo.getValueAt(row, columnIndexAverageSumInsured))
+                // some of the sums do not make much of sense now ...
             }
+            UnderwritingInfoBean bean = new UnderwritingInfoBean(
+                        underwritingSegmentName: segmentName,
+                        premium: premium.toString(),
+                        numberOfPolicies: numberOfPolicies.toString(),
+                        maxSumInsured: maxSumInsured.toString(),
+                        averageSumInsured: averageSumInsured.toString())
+            underwritingInformationBeans << bean
         }
+        // todo(rpa): here could a Bean for Total UW info follow -- or do we have a better solution?
+
+        Collections.sort(underwritingInformationBeans)
         underwritingInformationBeans
     }
 
@@ -73,7 +79,8 @@ public class GIRAParameterReportingUtils {
                     severityDistribution: severityDistribution.getType().getTypeName(),
                     severityDistributionParam1: parameterNames[0],
                     severityDistributionValue1: parameterValues[0].toString(),
-                    claimType: claimType.toString()
+                    claimType: claimsGenerator.parmClaimsModel.type.toString(),
+                    severityDistributionModification: claimsGenerator.parmClaimsModel.claimsSizeModification.type.toString()
             )
             if (parameterNames.size() > 1) {
                 bean.severityDistributionParam2 = parameterNames[1]
@@ -101,6 +108,7 @@ public class GIRAParameterReportingUtils {
             }
             claimsGeneratorBeans << bean
         }
+        Collections.sort(claimsGeneratorBeans)
         claimsGeneratorBeans
     }
 

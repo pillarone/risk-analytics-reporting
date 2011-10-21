@@ -53,14 +53,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{claimTypeLabel}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="56" width="124" height="20">
+				<reportElement x="171" y="56" width="95" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{relevantPortion} != null )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{relevantPortion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="71" y="56" width="71" height="20"/>
+				<reportElement x="71" y="56" width="100" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{relevantPortionLabel}]]></textFieldExpression>
 			</textField>
