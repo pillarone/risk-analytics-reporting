@@ -28,6 +28,7 @@ class GiraReportHelper {
     protected Simulation simulation
     Map periodLabels = [:]
     static NumberFormat numberFormat
+    static NumberFormat percentageFormat
 
     public JRBeanCollectionDataSource getCommentsDataSource(List<String> paths, int periodIndex) {
         Collection currentValues = new ArrayList<Comment>()
@@ -130,11 +131,27 @@ class GiraReportHelper {
         return numberFormat
     }
 
+    static NumberFormat getPercentageFormat() {
+        if (!percentageFormat) {
+            percentageFormat = NumberFormat.getPercentInstance(UIUtils.clientLocale)
+        }
+        return percentageFormat
+    }
+
     static String format(Double value) {
         try {
             return getNumberFormat().format(value)
         } catch (Exception ex) {
             return "-"
+        }
+    }
+
+    static String formatPercentage(Double value) {
+        try {
+            return getPercentageFormat().format(value)
+        }
+        catch (Exception ex) {
+            return '-'
         }
     }
 }

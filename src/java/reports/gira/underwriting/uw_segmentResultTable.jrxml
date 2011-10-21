@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="uw_segmentResultTable" pageWidth="842" pageHeight="200" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="cell" fontSize="10" isBold="false">
+		<box topPadding="5"/>
+	</style>
+	<style name="tableTitle" fontSize="10" isBold="true"/>
+    <field name="segmentName" class="java.lang.String"/>
+    <field name="totalPremium" class="java.lang.String"/>
+	<field name="rowLabel" class="java.lang.String"/>
+	<field name="meanValue" class="java.lang.String"/>
+	<field name="meanRatio" class="java.lang.String"/>
+	<field name="stdDevValue" class="java.lang.String"/>
+	<field name="stdDevRatio" class="java.lang.String"/>
+	<field name="varValue" class="java.lang.String"/>
+	<field name="varRatio" class="java.lang.String"/>
+	<field name="200yearValue" class="java.lang.String"/>
+	<field name="200yearRatio" class="java.lang.String"/>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement style="tableTitle" x="120" y="40" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Mean]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="79" width="680" height="1"/>
+			</line>
+			<staticText>
+				<reportElement style="tableTitle" x="120" y="60" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Absolute]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="227" y="60" width="33" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Ratio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="260" y="40" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Standard Deviation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="392" y="41" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[VaR 99.5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="534" y="40" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[200 year claim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="260" y="60" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Absolute]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="392" y="60" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Absolute]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="532" y="60" width="107" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Absolute]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="366" y="60" width="33" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Ratio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="499" y="60" width="33" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Ratio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="tableTitle" x="641" y="60" width="33" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Ratio]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="tableTitle" x="1" y="0" width="673" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{segmentName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="tableTitle" x="1" y="20" width="107" height="20"/>
+				<textElement/>
+				<text><![CDATA[Premium]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="cell" x="120" y="20" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalPremium}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="cell" x="0" y="0" width="100" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rowLabel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="120" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{meanValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="260" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{stdDevValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="220" y="0" width="40" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{meanRatio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="360" y="0" width="40" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{stdDevRatio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="541" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{200yearValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="401" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{varValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="499" y="0" width="40" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{varRatio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cell" x="641" y="0" width="40" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{200yearRatio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="120" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="260" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="540" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement x="401" y="0" width="1" height="20"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2">
+			<line>
+				<reportElement x="1" y="0" width="680" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+</jasperReport>

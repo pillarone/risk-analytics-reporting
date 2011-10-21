@@ -50,4 +50,18 @@ class ResultPathParserTests extends GroovyTestCase {
         assertFalse parser.isParentPath("GIRA:reinsuranceContracts:subWxl:outClaimsCeded")
 
     }
+
+    void testMergeSplittedPathsWithMainList() {
+        List<List<String>> result = [
+                ['GIRA:segments:subMarineAlpha:claimsGenerators:subMarine:outClaimsGross'],
+                ['GIRA:segments:subMarineAlpha:claimsGenerators:subMotor:outClaimsGross'],
+                ['GIRA:segments:subMarineAlpha:outClaimsGross', 'GIRA:segments:subMarineAlpha:outUnderwritingInfoGross'],
+                ['GIRA:segments:subMarineBeta:claimsGenerators:subMarine:outClaimsGross'],
+                ['GIRA:segments:subMarineBeta:outClaimsGross'],
+        ]
+        List<List<String>> mergedPaths = ResultPathParser.mergeSplittedPathsWithMainList(result, 'claimsGenerators', 'GIRA:segments', 2)
+        assertEquals 'number of distinct main components', 2, mergedPaths.size()
+        assertEquals 'number of of marine alpha paths', 4, mergedPaths[0].size()
+        assertEquals 'number of of marine beta paths', 2, mergedPaths[1].size()
+    }
 }

@@ -19,5 +19,7 @@ class PathFilter implements IPathFilter {
         return new MultiPathFilter([new PathFilter(pathStart), new SuffixPathFilter(suffixes)])
     }
 
-
+    List<String> beginningOfPath() {
+        [start]
+    }
 }

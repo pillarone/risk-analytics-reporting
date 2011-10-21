@@ -1,10 +1,16 @@
 package org.pillarone.riskanalytics.reporting.gira
 
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
+import org.pillarone.riskanalytics.core.output.AggregatedCollectingModeStrategy
+import org.pillarone.riskanalytics.domain.pc.cf.output.AggregateSplitPerSourceCollectingModeStrategy
+import org.pillarone.riskanalytics.core.components.ComponentUtils
+
 
 class ResultPathParser {
 
     static String CLAIMS_GENERATORS = "claimsGenerators"
-    static String LINE_OF_BUSINESS = "linesOfBusiness"
+    static String SEGMENTS = "segments"
     static String REINSURANCE = "reinsuranceContracts"
     static String CLAIMS = "outClaims"
     static String CLAIMS_NET = "outClaimsNet"
@@ -26,7 +32,7 @@ class ResultPathParser {
     String getComponentPath(PathType pathType) {
         switch (pathType) {
             case PathType.CLAIMSGENERATORS: return modelName + ":" + CLAIMS_GENERATORS
-            case PathType.LINESOFBUSINESS: return modelName + ":" + LINE_OF_BUSINESS
+            case PathType.SEGMENTS: return modelName + ":" + SEGMENTS
             case PathType.REINSURANCE: return modelName + ":" + REINSURANCE
         }
         return null
@@ -53,6 +59,50 @@ class ResultPathParser {
             cachedMap[pathType] = foundPaths
         }
         return cachedMap[pathType]
+    }
+
+    /**
+     * Searches for nested lists containing elements containing splittedPathElement. They are merged into the list
+     * containing the shorter path if the path element at sameElement is the same.
+     * @param result
+     * @param splittedPathElement
+     * @param pathStart
+     * @param sameElement
+     */
+    static List<List<ResultAccessorInformation>> mergeSplittedPathsWithMainList(List<List<String>> result,
+                                                                                String splittedPathElement, String pathStart,
+                                                                                int sameElement) {
+        List<List<ResultAccessorInformation>> mergedResult = []
+        ListMultimap<String, ResultAccessorInformation> pathsForSameElement = ArrayListMultimap.create()
+        String colon = ':'
+        for (List<String> pathList: result) {
+            for (String path: pathList) {
+                String samePath = path.split(colon)[sameElement]
+                String collector
+                String descriptor
+                if (path.contains(splittedPathElement)) {
+                    collector = AggregateSplitPerSourceCollectingModeStrategy.IDENTIFIER
+                    descriptor = ComponentUtils.getNormalizedName(path.split(colon)[-2])
+                }
+                else {
+                    collector = AggregatedCollectingModeStrategy.IDENTIFIER
+                    descriptor = ComponentUtils.getNormalizedName(samePath)
+                }
+                List<String> fieldNames = []
+                if (path.contains('Underwriting')) {
+                    fieldNames << 'premiumWritten'
+                }
+                else if (path.contains('Claims')) {
+                    fieldNames << 'ultimate'
+                }
+                pathsForSameElement.put(samePath, new ResultAccessorInformation(path: path, collector: collector,
+                        fields: fieldNames, descriptor: descriptor))
+            }
+        }
+        for (List<String> paths : pathsForSameElement.asMap().values()) {
+            mergedResult << paths
+        }
+        mergedResult
     }
 
     List<String> appyFilter(List<String> paths) {
@@ -82,7 +132,7 @@ class ResultPathParser {
 
     PathType getPathType(String path) {
         if (path.startsWith(modelName + ":" + CLAIMS_GENERATORS)) return PathType.CLAIMSGENERATORS
-        if (path.startsWith(modelName + ":" + LINE_OF_BUSINESS)) return PathType.LINESOFBUSINESS
+        if (path.startsWith(modelName + ":" + SEGMENTS)) return PathType.SEGMENTS
         if (path.startsWith(modelName + ":" + REINSURANCE)) return PathType.REINSURANCE
         return null
     }

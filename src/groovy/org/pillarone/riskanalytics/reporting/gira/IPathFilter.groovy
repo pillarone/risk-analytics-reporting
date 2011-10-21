@@ -7,4 +7,6 @@ public interface IPathFilter {
 
     public boolean accept(String path)
 
+    public List<String> beginningOfPath()
+
 }

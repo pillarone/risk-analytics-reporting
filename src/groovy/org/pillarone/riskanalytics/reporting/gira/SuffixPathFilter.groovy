@@ -20,4 +20,9 @@ class SuffixPathFilter implements IPathFilter {
         }
         return false
     }
+    
+    List<String> beginningOfPath() {
+        []
+    }
+
 }

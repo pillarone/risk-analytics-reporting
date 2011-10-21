@@ -32,10 +32,10 @@ class ReportTests extends GroovyTestCase {
     }
 
     void testCreateUnderwritingReport() {
-        Parameterization parameterization = ModellingItemFactory.getParameterization(ParameterizationDAO.findByName("Multi Company"))
-
-        IReportData reportData = new ModellingItemReportData(parameterization)
-        byte[] report = ReportFactory.createPDFReport(new UnderwritingReportModel(), reportData)
+//        Parameterization parameterization = ModellingItemFactory.getParameterization(ParameterizationDAO.findByName("Multi Company"))
+//
+//        IReportData reportData = new ModellingItemReportData(parameterization)
+//        byte[] report = ReportFactory.createPDFReport(new UnderwritingReportModel(), reportData)
 //        // todo(sku): ask msp how to modify functionality in CreateReportAction.saveReport
 //        use FileOutputStream
 //        saveReport(report, reportData)

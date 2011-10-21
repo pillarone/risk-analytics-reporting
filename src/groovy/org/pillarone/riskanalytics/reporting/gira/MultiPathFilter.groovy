@@ -19,5 +19,8 @@ class MultiPathFilter implements IPathFilter {
         return true
     }
 
+    List<String> beginningOfPath() {
+        filters*.beginningOfPath()
+    }
 
 }
