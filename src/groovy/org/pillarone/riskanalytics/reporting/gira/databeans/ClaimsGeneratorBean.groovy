@@ -28,14 +28,17 @@ public class ClaimsGeneratorBean implements Comparable<ClaimsGeneratorBean> {
     String relevantPortionLabel = "Relevant Portion"
     String relevantPortion = "100 %"
 
-
-
     public Boolean hasFrequencyDistribution() {
         frequencyDistribution != null
     }
 
     int compareTo(ClaimsGeneratorBean o) {
-        return perilName.compareTo(o.perilName)
+        perilName.compareTo(o.perilName)
+    }
+
+    @Override
+    String toString() {
+        perilName
     }
 
 }

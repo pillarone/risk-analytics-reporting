@@ -13,6 +13,7 @@ import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import org.pillarone.riskanalytics.reporting.gira.databeans.ClaimsGeneratorBean
 import org.pillarone.riskanalytics.reporting.gira.*
 import org.pillarone.riskanalytics.reporting.gira.databeans.UnderwritingInfoBean
+import org.pillarone.riskanalytics.reporting.gira.databeans.SegmentBean
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -35,10 +36,17 @@ public class UnderwritingReportModel implements IReportModel {
         if(!simulation.isLoaded()) {
             simulation.load()
         }
+
+        GIRAModel model = new GIRAModel()
+        GIRAParameterReportingUtils.initModelForParameterReporting(model, simulation.parameterization)
+        List<SegmentBean> segmentBeans = GIRAParameterReportingUtils.getSegements(model)
+
         String modelName = GIRAReportUtils.parseModelName(GIRAModel.simpleName)
         ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getPaths(simulation.getSimulationRun()))
 
+
         List currentValues = []
+        // loop over segments
         for (List<List<String>> componentPaths in getResultPaths(parser).values()) {
             currentValues << ['segmentResults' : new SegmentResultDataSourceFactory(simulation, parser).getSegmentResultDataSource(componentPaths)]
         }

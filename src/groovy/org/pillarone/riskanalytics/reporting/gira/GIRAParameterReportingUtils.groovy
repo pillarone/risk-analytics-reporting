@@ -17,6 +17,7 @@ import org.pillarone.riskanalytics.reporting.gira.databeans.ClaimsGeneratorBean
 import org.pillarone.riskanalytics.reporting.gira.databeans.ReinsuranceContractBean
 import org.pillarone.riskanalytics.reporting.gira.databeans.SegmentBean
 import org.pillarone.riskanalytics.reporting.gira.databeans.UnderwritingInfoBean
+import org.pillarone.riskanalytics.domain.pc.cf.segment.Segment
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -62,8 +63,18 @@ public class GIRAParameterReportingUtils {
         underwritingInformationBeans
     }
 
+    /**
+     * @deprecated use getClaimsGeneratorBeans instead!
+     * @param model
+     * @return
+     */
+    @Deprecated
     public static List<ClaimsGeneratorBean> getClaimsGenerators(GIRAModel model) {
-        ArrayList<ClaimsGeneratorBean> claimsGeneratorBeans = new ArrayList<ClaimsGeneratorBean>()
+        new LinkedList(getClaimsGeneratorBeans(model).values())
+    }
+
+    public static Map<String, ClaimsGeneratorBean> getClaimsGeneratorBeans(GIRAModel model) {
+        SortedMap<String, ClaimsGeneratorBean> claimsGeneratorBeans = new TreeMap<String, ClaimsGeneratorBean>()
         List<Component> claimsGenerators = model.claimsGenerators.componentList
 
         for (Component component : claimsGenerators) {
@@ -106,10 +117,32 @@ public class GIRAParameterReportingUtils {
                     bean.frequencyDistributionValue1 = freqParameterValues[2].toString()
                 }
             }
-            claimsGeneratorBeans << bean
+            claimsGeneratorBeans[bean.perilName] = bean
         }
-        Collections.sort(claimsGeneratorBeans)
         claimsGeneratorBeans
+    }
+
+    public static List<SegmentBean> getSegements(GIRAModel model) {
+        Map<String, ClaimsGeneratorBean> claimsGeneratorBeans = getClaimsGeneratorBeans(model)
+
+        ArrayList<SegmentBean> segmentBeans = new ArrayList<SegmentBean>()
+        List<Component> segments = model.segments.componentList
+
+        for (Component component : segments) {
+            Segment segment = (Segment) component
+            SegmentBean segmentBean = new SegmentBean(segmentName: segment.normalizedName)
+            int portionColumnIndex = segment.parmClaimsPortions.getColumnIndex('Portion')
+            int perilColumnIndex = segment.parmClaimsPortions.getColumnIndex('Claims Generator')
+            for (int row = segment.parmClaimsPortions.titleRowCount; row < segment.parmClaimsPortions.rowCount; row++) {
+                Double portion = InputFormatConverter.getDouble(segment.parmClaimsPortions.getValueAt(row, portionColumnIndex))
+                String peril = segment.parmClaimsPortions.getValueAt(row, perilColumnIndex)
+                ClaimsGeneratorBean claimsGeneratorBean = claimsGeneratorBeans[peril]
+                claimsGeneratorBean.relevantPortion = GiraReportHelper.formatPercentage(portion)
+                segmentBean.portionPerClaimsGenerator.put(claimsGeneratorBean, portion)
+            }
+            segmentBeans << segmentBean
+        }
+        segmentBeans
     }
 
     public static List<ReinsuranceContractBean> getReinsuranceContracts(GIRAModel model) {

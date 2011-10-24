@@ -14,4 +14,11 @@ public class UnderwritingInfoBean implements Comparable<UnderwritingInfoBean> {
     int compareTo(UnderwritingInfoBean o) {
         return underwritingSegmentName.compareTo(o.underwritingSegmentName)
     }
+
+    @Override
+    String toString() {
+        underwritingSegmentName
+    }
+
+
 }
