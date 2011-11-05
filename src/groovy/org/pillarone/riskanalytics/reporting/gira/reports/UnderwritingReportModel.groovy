@@ -39,34 +39,18 @@ public class UnderwritingReportModel implements IReportModel {
 
         GIRAModel model = new GIRAModel()
         GIRAParameterReportingUtils.initModelForParameterReporting(model, simulation.parameterization)
-        List<SegmentBean> segmentBeans = GIRAParameterReportingUtils.getSegements(model)
 
         String modelName = GIRAReportUtils.parseModelName(GIRAModel.simpleName)
         ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getPaths(simulation.getSimulationRun()))
-
+        List<SegmentBean> segmentBeans = GIRAParameterReportingUtils.getSegements(model, simulation, parser)
 
         List currentValues = []
-        // loop over segments
-        for (List<List<String>> componentPaths in getResultPaths(parser).values()) {
-            currentValues << ['segmentResults' : new SegmentResultDataSourceFactory(simulation, parser).getSegmentResultDataSource(componentPaths)]
-        }
+        currentValues << ['segments': new JRBeanCollectionDataSource(segmentBeans)]
+
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(currentValues);
         return jrBeanCollectionDataSource
     }
 
-    /**
-     * @param parser
-     * @return PathType relates to the component (claims generator, reinsurance contract, ...)
-     *          the nested list contains all out channels (inner list) per component (outer list)
-     */
-    protected Map<PathType, List<List<ResultAccessorInformation>>> getResultPaths(ResultPathParser parser) {
-        Map result = [:]
-        IPathFilter segmentsFilter = PathFilter.getFilter(parser.getComponentPath(PathType.SEGMENTS),
-            ['outUnderwritingInfoGross', 'outClaimsGross'])
-        GIRAReportUtils.addList(result, PathType.SEGMENTS, parser.getComponentPaths(PathType.SEGMENTS, segmentsFilter))
-        result[PathType.SEGMENTS] = ResultPathParser.mergeSplittedPathsWithMainList(result[PathType.SEGMENTS], 'claimsGenerators', 'GIRA:segments', 2)
-        result
-    }
 
     public Map getParameters(IReportData reportData) {
 
@@ -76,26 +60,12 @@ public class UnderwritingReportModel implements IReportModel {
         GIRAModel model = new GIRAModel()
         GIRAParameterReportingUtils.initModelForParameterReporting(model, parameterization)
 
-        List<ClaimsGeneratorBean> claimsGeneratorBeans = GIRAParameterReportingUtils.getClaimsGenerators(model)
-        JRBeanCollectionDataSource claimsGeneratorsDataSource = new JRBeanCollectionDataSource(claimsGeneratorBeans)
-
-        List<UnderwritingInfoBean> underwritingInfoBeans = GIRAParameterReportingUtils.getUnderwritingInformation(model);
-        JRBeanCollectionDataSource underwritingInfoDataSource = new JRBeanCollectionDataSource(underwritingInfoBeans)
-//
-//        List<ReinsuranceContractBean> reinsuranceContractBeans = GIRAParameterReportingUtils.getReinsuranceContracts(model)
-//        JRBeanCollectionDataSource reinsuranceContractsDataSource = new JRBeanCollectionDataSource(reinsuranceContractBeans)
-
         [
                 "SUBREPORT_DIR": getClass().getResource(reportDirectory),
                 "LOGO_DIR": getClass().getResource(reportDirectory),
 
                 "PARAMETERIZATION_NAME": parameterization.getName(),
                 "P14N_VERSION": "v" + parameterization.versionNumber.toString(),
-
-                "UW_SEGMENTS": underwritingInfoDataSource,
-                "CLAIMS_GENERATORS": claimsGeneratorsDataSource,
-//                "REINSURANCE_CONTRACTS": reinsuranceContractsDataSource
-
         ]
     }
 

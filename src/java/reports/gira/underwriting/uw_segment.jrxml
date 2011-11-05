@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="uw_segmentResultTable" pageWidth="842" pageHeight="70" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="uw_segmentResultTable" pageWidth="842" pageHeight="488" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,16 +7,62 @@
 		<box topPadding="5"/>
 	</style>
 	<parameter name="SUBREPORT_DIR" class="java.net.URL" isForPrompting="false"/>
-	<field name="segmentResult" class="net.sf.jasperreports.engine.data.JRAbstractBeanDataSource"/>
+	<field name="segmentName" class="java.lang.String"/>
+	<field name="riskBands" class="net.sf.jasperreports.engine.data.JRAbstractBeanDataSource"/>
+	<field name="claimsGenerators" class="net.sf.jasperreports.engine.data.JRAbstractBeanDataSource"/>
+	<field name="results" class="net.sf.jasperreports.engine.data.JRMapCollectionDataSource"/>
 	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="780" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{segmentName}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-24" x="0" y="23" width="500" height="60"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$F{riskBands}]]></dataSourceExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[new java.net.URL($P{SUBREPORT_DIR}.toExternalForm() + "/uw_information.jasper")]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="3" width="780" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Underwriting Information]]></text>
+			</staticText>
+		</band>
 		<band height="70">
 			<subreport isUsingCache="true">
 				<reportElement key="subreport-24" x="0" y="21" width="780" height="49"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{segmentResult}]]></dataSourceExpression>
-				<subreportExpression class="java.net.URL"><![CDATA[new java.net.URL($P{SUBREPORT_DIR}.toExternalForm() + "/uw_segmentResultTable.jasper")]]></subreportExpression>
+				<dataSourceExpression><![CDATA[$F{claimsGenerators}]]></dataSourceExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[new java.net.URL($P{SUBREPORT_DIR}.toExternalForm() + "/uw_claimsGenerator.jasper")]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="1" width="780" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Claims Generators (relevant portion)]]></text>
+			</staticText>
+		</band>
+		<band height="70">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-24" positionType="Float" x="0" y="20" width="780" height="50" backcolor="#00FFCC"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$F{results}]]></dataSourceExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[new java.net.URL($P{SUBREPORT_DIR}.toExternalForm() + "/uw_segmentResults.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

@@ -18,14 +18,16 @@ import org.pillarone.riskanalytics.reporting.gira.databeans.ReinsuranceContractB
 import org.pillarone.riskanalytics.reporting.gira.databeans.SegmentBean
 import org.pillarone.riskanalytics.reporting.gira.databeans.UnderwritingInfoBean
 import org.pillarone.riskanalytics.domain.pc.cf.segment.Segment
+import net.sf.jasperreports.engine.data.JRMapCollectionDataSource
+import org.pillarone.riskanalytics.core.simulation.item.Simulation
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
  */
 public class GIRAParameterReportingUtils {
 
-    public static List<UnderwritingInfoBean> getUnderwritingInformation(GIRAModel model) {
-        ArrayList<UnderwritingInfoBean> underwritingInformationBeans = new ArrayList<UnderwritingInfoBean>()
+    public static Map<String, UnderwritingInfoBean> getUnderwritingInformation(GIRAModel model) {
+        SortedMap<String, UnderwritingInfoBean> underwritingInformationBeans = new TreeMap<String, UnderwritingInfoBean>()
         List<Component> underwritingSegments = model.underwritingSegments.componentList
 
         for (Component underwritingSegment : underwritingSegments) {
@@ -55,22 +57,12 @@ public class GIRAParameterReportingUtils {
                         numberOfPolicies: numberOfPolicies.toString(),
                         maxSumInsured: maxSumInsured.toString(),
                         averageSumInsured: averageSumInsured.toString())
-            underwritingInformationBeans << bean
+            underwritingInformationBeans[segmentName] = bean
         }
         // todo(rpa): here could a Bean for Total UW info follow -- or do we have a better solution?
 
-        Collections.sort(underwritingInformationBeans)
+//        Collections.sort(underwritingInformationBeans)
         underwritingInformationBeans
-    }
-
-    /**
-     * @deprecated use getClaimsGeneratorBeans instead!
-     * @param model
-     * @return
-     */
-    @Deprecated
-    public static List<ClaimsGeneratorBean> getClaimsGenerators(GIRAModel model) {
-        new LinkedList(getClaimsGeneratorBeans(model).values())
     }
 
     public static Map<String, ClaimsGeneratorBean> getClaimsGeneratorBeans(GIRAModel model) {
@@ -122,11 +114,13 @@ public class GIRAParameterReportingUtils {
         claimsGeneratorBeans
     }
 
-    public static List<SegmentBean> getSegements(GIRAModel model) {
+    public static List<SegmentBean> getSegements(GIRAModel model, Simulation simulation, ResultPathParser parser) {
         Map<String, ClaimsGeneratorBean> claimsGeneratorBeans = getClaimsGeneratorBeans(model)
+        Map<String, UnderwritingInfoBean> underwritingInfoBeans = getUnderwritingInformation(model)
 
         ArrayList<SegmentBean> segmentBeans = new ArrayList<SegmentBean>()
         List<Component> segments = model.segments.componentList
+        Map<String, JRMapCollectionDataSource> resultsPerSegment = getSegmentResults(simulation, parser)
 
         for (Component component : segments) {
             Segment segment = (Segment) component
@@ -140,9 +134,30 @@ public class GIRAParameterReportingUtils {
                 claimsGeneratorBean.relevantPortion = GiraReportHelper.formatPercentage(portion)
                 segmentBean.portionPerClaimsGenerator.put(claimsGeneratorBean, portion)
             }
+            portionColumnIndex = segment.parmUnderwritingPortions.getColumnIndex('Portion')
+            int riskBandColumnIndex = segment.parmUnderwritingPortions.getColumnIndex('Underwriting')
+            for (int row = segment.parmUnderwritingPortions.titleRowCount; row < segment.parmUnderwritingPortions.rowCount; row++) {
+                Double portion = InputFormatConverter.getDouble(segment.parmClaimsPortions.getValueAt(row, portionColumnIndex))
+                String riskBand = segment.parmClaimsPortions.getValueAt(row, riskBandColumnIndex)
+                UnderwritingInfoBean underwritingInfoBean = underwritingInfoBeans[riskBand]
+                segmentBean.portionPerUnderwritingInfo.put(underwritingInfoBean, portion)
+            }
+            segmentBean.results = resultsPerSegment[segmentBean.segmentName]
             segmentBeans << segmentBean
         }
         segmentBeans
+    }
+
+    public static Map<String, JRMapCollectionDataSource> getSegmentResults(Simulation simulation, ResultPathParser parser) {
+        Map<String, JRMapCollectionDataSource> segmentResults = [:]
+        // loop over segments
+        for (List<List<String>> componentPaths in getResultPaths(parser).values()) {
+            List segments = new SegmentResultDataSourceFactory(simulation, parser).getSegmentResultDataSource(componentPaths);
+            for (List segment : segments) {
+                segmentResults[segment[0].segmentName] = new JRMapCollectionDataSource([['segmentResult' : new JRMapCollectionDataSource(segment)]])
+            }
+        }
+        segmentResults
     }
 
     public static List<ReinsuranceContractBean> getReinsuranceContracts(GIRAModel model) {
@@ -163,5 +178,19 @@ public class GIRAParameterReportingUtils {
         applicator.setParameterization(parameterization)
         applicator.init()
         applicator.applyParameterForPeriod(0)
+    }
+
+    /**
+     * @param parser
+     * @return PathType relates to the component (claims generator, reinsurance contract, ...)
+     *          the nested list contains all out channels (inner list) per component (outer list)
+     */
+    public static Map<PathType, List<List<ResultAccessorInformation>>> getResultPaths(ResultPathParser parser) {
+        Map result = [:]
+        IPathFilter segmentsFilter = PathFilter.getFilter(parser.getComponentPath(PathType.SEGMENTS),
+            ['outUnderwritingInfoGross', 'outClaimsGross'])
+        GIRAReportUtils.addList(result, PathType.SEGMENTS, parser.getComponentPaths(PathType.SEGMENTS, segmentsFilter))
+        result[PathType.SEGMENTS] = ResultPathParser.mergeSplittedPathsWithMainList(result[PathType.SEGMENTS], 'claimsGenerators', 'GIRA:segments', 2)
+        result
     }
 }
