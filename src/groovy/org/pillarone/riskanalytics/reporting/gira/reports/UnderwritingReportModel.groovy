@@ -14,6 +14,7 @@ import org.pillarone.riskanalytics.reporting.gira.databeans.ClaimsGeneratorBean
 import org.pillarone.riskanalytics.reporting.gira.*
 import org.pillarone.riskanalytics.reporting.gira.databeans.UnderwritingInfoBean
 import org.pillarone.riskanalytics.reporting.gira.databeans.SegmentBean
+import org.pillarone.riskanalytics.reporting.gira.databeans.ReinsuranceContractBean
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -38,7 +39,7 @@ public class UnderwritingReportModel implements IReportModel {
         }
 
         GIRAModel model = new GIRAModel()
-        GIRAParameterReportingUtils.initModelForParameterReporting(model, simulation.parameterization)
+        ReportUtils.loadAndApplyParameterizationToModel(model, simulation.parameterization)
 
         String modelName = GIRAReportUtils.parseModelName(GIRAModel.simpleName)
         ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getPaths(simulation.getSimulationRun()))
@@ -58,7 +59,10 @@ public class UnderwritingReportModel implements IReportModel {
         Parameterization parameterization = simulation.parameterization
 
         GIRAModel model = new GIRAModel()
-        GIRAParameterReportingUtils.initModelForParameterReporting(model, parameterization)
+        ReportUtils.loadAndApplyParameterizationToModel(model, parameterization)
+
+        List<ReinsuranceContractBean> reinsuranceContractBeans = GIRAParameterReportingUtils.getReinsuranceContracts(model)
+        JRBeanCollectionDataSource reinsuranceContractsDataSource = new JRBeanCollectionDataSource(reinsuranceContractBeans)
 
         [
                 "SUBREPORT_DIR": getClass().getResource(reportDirectory),
@@ -66,6 +70,8 @@ public class UnderwritingReportModel implements IReportModel {
 
                 "PARAMETERIZATION_NAME": parameterization.getName(),
                 "P14N_VERSION": "v" + parameterization.versionNumber.toString(),
+
+                "REINSURANCE_CONTRACTS": reinsuranceContractsDataSource
         ]
     }
 

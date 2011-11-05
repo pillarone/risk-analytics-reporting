@@ -20,6 +20,8 @@ import org.pillarone.riskanalytics.reporting.gira.databeans.UnderwritingInfoBean
 import org.pillarone.riskanalytics.domain.pc.cf.segment.Segment
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource
 import org.pillarone.riskanalytics.core.simulation.item.Simulation
+import org.pillarone.riskanalytics.domain.utils.math.distribution.DistributionModified
+import org.pillarone.riskanalytics.domain.pc.cf.reinsurance.contract.ReinsuranceContract
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -60,8 +62,6 @@ public class GIRAParameterReportingUtils {
             underwritingInformationBeans[segmentName] = bean
         }
         // todo(rpa): here could a Bean for Total UW info follow -- or do we have a better solution?
-
-//        Collections.sort(underwritingInformationBeans)
         underwritingInformationBeans
     }
 
@@ -85,6 +85,16 @@ public class GIRAParameterReportingUtils {
                     claimType: claimsGenerator.parmClaimsModel.type.toString(),
                     severityDistributionModification: claimsGenerator.parmClaimsModel.claimsSizeModification.type.toString()
             )
+            if (bean.severityDistributionModification != 'none') {
+                DistributionModified severityModification = (DistributionModified) claimsGenerator.parmClaimsModel.parameters['claimsSizeModification']
+                List<String> parameterModificationNames = new ArrayList<String>(severityModification.parameters.keySet())
+                List<Number> parameterModificationValues = new ArrayList<Number>(severityModification.parameters.values())
+
+                bean.severityDistributionModificationParam1 = parameterModificationNames[0]
+                bean.severityDistributionModificationParam2 = parameterModificationNames[1]
+                bean.severityDistributionModificationValue1 = parameterModificationValues[0]
+                bean.severityDistributionModificationValue2 = parameterModificationValues[1]
+            }
             if (parameterNames.size() > 1) {
                 bean.severityDistributionParam2 = parameterNames[1]
                 bean.severityDistributionValue2 = parameterValues[1].toString()
@@ -161,23 +171,21 @@ public class GIRAParameterReportingUtils {
     }
 
     public static List<ReinsuranceContractBean> getReinsuranceContracts(GIRAModel model) {
-        null
-    }
+        ArrayList<ReinsuranceContractBean> reinsuranceContractBeans = new ArrayList<ReinsuranceContractBean>()
+        List<Component> reinsuranceContracts = model.reinsuranceContracts.componentList
 
-    public static List<SegmentBean> getSegments(GIRAModel model) {
-        null
-    }
+        for (Component component : reinsuranceContracts) {
+            ReinsuranceContract reinsuranceContract = (ReinsuranceContract) component
 
-    // todo(sku): move to ReportUtils in core plugin, discuss with msp
-    public static void initModelForParameterReporting(Model model, Parameterization parameterization) {
-        model.init()
+//            ClaimType claimType = claimsGenerator.parmClaimsModel.claimType()
 
-        ParameterApplicator applicator = new ParameterApplicator()
-        applicator.setModel(model)
-        parameterization.load(true)
-        applicator.setParameterization(parameterization)
-        applicator.init()
-        applicator.applyParameterForPeriod(0)
+            ReinsuranceContractBean bean = new ReinsuranceContractBean(
+                    contractName: reinsuranceContract.normalizedName,
+                    contractType: reinsuranceContract.parmContractStrategy.type.toString()
+            )
+            reinsuranceContractBeans << bean
+        }
+        reinsuranceContractBeans
     }
 
     /**
