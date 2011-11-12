@@ -147,8 +147,8 @@ public class GIRAParameterReportingUtils {
             portionColumnIndex = segment.parmUnderwritingPortions.getColumnIndex('Portion')
             int riskBandColumnIndex = segment.parmUnderwritingPortions.getColumnIndex('Underwriting')
             for (int row = segment.parmUnderwritingPortions.titleRowCount; row < segment.parmUnderwritingPortions.rowCount; row++) {
-                Double portion = InputFormatConverter.getDouble(segment.parmClaimsPortions.getValueAt(row, portionColumnIndex))
-                String riskBand = segment.parmClaimsPortions.getValueAt(row, riskBandColumnIndex)
+                Double portion = InputFormatConverter.getDouble(segment.parmUnderwritingPortions.getValueAt(row, portionColumnIndex))
+                String riskBand = segment.parmUnderwritingPortions.getValueAt(row, riskBandColumnIndex)
                 UnderwritingInfoBean underwritingInfoBean = underwritingInfoBeans[riskBand]
                 segmentBean.portionPerUnderwritingInfo.put(underwritingInfoBean, portion)
             }
