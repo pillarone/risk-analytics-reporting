@@ -85,7 +85,7 @@ class GIRAReportModel implements IReportModel {
 
     String getDefaultReportFileNameWithoutExtension(IReportData reportData) {
         Simulation simulation = (Simulation)ReportUtils.getSingleModellingItem(reportData)
-        return "${name} of ${simulation.name}"
+        return "${name} of ${simulation.name} + ${System.currentTimeMillis()}"
     }
 
     boolean isValidFormatAndData(ReportFactory.ReportFormat reportFormat, IReportData reportData) {

@@ -77,7 +77,7 @@ public class UnderwritingReportModel implements IReportModel {
 
     public String getDefaultReportFileNameWithoutExtension(IReportData reportData) {
         Simulation simulation = (Simulation) ReportUtils.getSingleModellingItem(reportData)
-        getName() + " of ${simulation.name}"
+        getName() + " of ${simulation.name}" + System.currentTimeMillis()
     }
 
     public boolean isValidFormatAndData(ReportFactory.ReportFormat reportFormat, IReportData reportData) {
