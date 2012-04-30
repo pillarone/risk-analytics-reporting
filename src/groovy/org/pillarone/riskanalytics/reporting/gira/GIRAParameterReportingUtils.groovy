@@ -86,14 +86,15 @@ public class GIRAParameterReportingUtils {
                     severityDistributionModification: claimsGenerator.parmClaimsModel.claimsSizeModification.type.toString()
             )
             if (bean.severityDistributionModification != 'none') {
-                DistributionModified severityModification = (DistributionModified) claimsGenerator.parmClaimsModel.parameters['claimsSizeModification']
+              //TODO: sku: fix report
+                /*DistributionModified severityModification = (DistributionModified) claimsGenerator.parmClaimsModel.parameters['claimsSizeModification']
                 List<String> parameterModificationNames = new ArrayList<String>(severityModification.parameters.keySet())
                 List<Number> parameterModificationValues = new ArrayList<Number>(severityModification.parameters.values())
 
                 bean.severityDistributionModificationParam1 = parameterModificationNames[0]
                 bean.severityDistributionModificationParam2 = parameterModificationNames[1]
                 bean.severityDistributionModificationValue1 = parameterModificationValues[0]
-                bean.severityDistributionModificationValue2 = parameterModificationValues[1]
+                bean.severityDistributionModificationValue2 = parameterModificationValues[1]*/
             }
             if (parameterNames.size() > 1) {
                 bean.severityDistributionParam2 = parameterNames[1]

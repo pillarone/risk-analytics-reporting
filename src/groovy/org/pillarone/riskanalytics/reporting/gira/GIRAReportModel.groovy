@@ -26,7 +26,7 @@ class GIRAReportModel implements IReportModel {
             simulation.load()
         }
         String modelName = GIRAReportUtils.parseModelName(GIRAModel.simpleName)
-        ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getPaths(simulation.getSimulationRun()))
+        ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getDistinctPaths(simulation.getSimulationRun())*.path.pathName.toList())
 
         List currentValues = []
         for (Map.Entry<PathType, List<List<String>>> entry in getPaths(parser).entrySet()) {

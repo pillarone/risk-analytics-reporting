@@ -4,6 +4,8 @@ import org.pillarone.riskanalytics.core.output.SimulationRun
 import org.pillarone.riskanalytics.core.dataaccess.ResultAccessor
 import org.pillarone.riskanalytics.core.dataaccess.PostSimulationCalculationAccessor
 import org.pillarone.riskanalytics.core.output.PostSimulationCalculation
+import org.pillarone.riskanalytics.reporting.gira.util.ReportResultAccessor
+import org.pillarone.riskanalytics.core.output.QuantilePerspective
 
 /**
  * @author fouad.jaada@intuitive-collaboration.com
@@ -24,21 +26,21 @@ class ResultFunctionValuesBean {
     }
 
     public initValues() {
-        cachedValues = ResultAccessor.getAllValues(simulationRun, collectorName)
+        cachedValues = ReportResultAccessor.getAllValues(simulationRun, collectorName)
         cachedStdDevValues = PostSimulationCalculationAccessor.getKeyFigureResults(simulationRun, collectorName, PostSimulationCalculation.STDEV)
-        cachedMeanValues = ResultAccessor.getMeans(simulationRun, collectorName)
+        cachedMeanValues = ReportResultAccessor.getMeans(simulationRun, collectorName)
     }
 
     public Double getStdDev(String path, String fieldName, int periodIndex) {
         if (!cachedStdDevValues[getKey(path, fieldName, periodIndex)]) {
-            cachedStdDevValues[getKey(path, fieldName, periodIndex)] = ResultAccessor.getStandardDeviationValue(simulationRun, periodIndex, path, collectorName, fieldName)
+            cachedStdDevValues[getKey(path, fieldName, periodIndex)] = ResultAccessor.getStdDev(simulationRun, periodIndex, path, collectorName, fieldName)
         }
         return cachedStdDevValues[getKey(path, fieldName, periodIndex)]
     }
 
     public Double getVar(String path, String fieldName, int periodIndex, double severity) {
         try {
-            ResultAccessor.getTvar(simulationRun, periodIndex, path, collectorName, fieldName, severity)
+            ResultAccessor.getTvar(simulationRun, periodIndex, path, collectorName, fieldName, severity, QuantilePerspective.LOSS)
         } catch (Exception ex) {
             return null
         }
@@ -46,7 +48,7 @@ class ResultFunctionValuesBean {
 
     public Double getTvar(String path, String fieldName, int periodIndex, double severity) {
         try {
-            ResultAccessor.getTvar(simulationRun, periodIndex, path, collectorName, fieldName, severity)
+            ResultAccessor.getTvar(simulationRun, periodIndex, path, collectorName, fieldName, severity, QuantilePerspective.LOSS)
         } catch (Exception ex) {
             return null
         }
@@ -55,7 +57,7 @@ class ResultFunctionValuesBean {
 
     public Double getMean(String path, String fieldName, int periodIndex) {
         if (!cachedMeanValues[getKey(path, fieldName, periodIndex)]) {
-            cachedMeanValues[getKey(path, fieldName, periodIndex)] = ResultAccessor.getAvgOfSingleValueResult(simulationRun, periodIndex, path, collectorName, fieldName)
+            cachedMeanValues[getKey(path, fieldName, periodIndex)] = ReportResultAccessor.getAvgOfSingleValueResult(simulationRun, periodIndex, path, collectorName, fieldName)
         }
         return cachedMeanValues[getKey(path, fieldName, periodIndex)]
     }

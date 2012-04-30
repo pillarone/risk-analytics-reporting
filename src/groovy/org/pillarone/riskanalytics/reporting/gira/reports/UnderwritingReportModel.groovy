@@ -42,7 +42,7 @@ public class UnderwritingReportModel implements IReportModel {
         ReportUtils.loadAndApplyParameterizationToModel(model, simulation.parameterization)
 
         String modelName = GIRAReportUtils.parseModelName(GIRAModel.simpleName)
-        ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getPaths(simulation.getSimulationRun()))
+        ResultPathParser parser = new ResultPathParser(modelName, ResultAccessor.getDistinctPaths(simulation.getSimulationRun())*.path.pathName.toList())
         List<SegmentBean> segmentBeans = GIRAParameterReportingUtils.getSegements(model, simulation, parser)
 
         List currentValues = []

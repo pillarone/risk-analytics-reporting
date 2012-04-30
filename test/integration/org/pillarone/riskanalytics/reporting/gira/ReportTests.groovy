@@ -22,8 +22,8 @@ class ReportTests extends GroovyTestCase {
     void testCreateGIRAReport() {
         Simulation simulation = new Simulation("simulation")
         simulation.modelClass = GIRAModel
-        simulation.parameterization = ModellingItemFactory.getParameterization(ParameterizationDAO.findByName("Developed Claims"))
-        simulation.template = ModellingItemFactory.getResultConfiguration(ResultConfigurationDAO.findByName("Aggregate Gross Claims without Index Collection"))
+        simulation.parameterization = ModellingItemFactory.getParameterization(ParameterizationDAO.findByName("CapitalEagle NP+ALL50"))
+        simulation.template = ModellingItemFactory.getResultConfiguration(ResultConfigurationDAO.findByName("Details, Aggregated, CY Split"))
         simulation.periodCount = 1
         simulation.numberOfIterations = 100
         simulation.save()
