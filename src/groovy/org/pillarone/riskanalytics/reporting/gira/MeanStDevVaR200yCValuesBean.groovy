@@ -70,23 +70,33 @@ class MeanStDevVaR200yCValuesBean {
     }
 
     public Double getMeanRatio(String path, String fieldName, int periodIndex, double total) {
-        total == 0d ? 0d : getMean(path, fieldName, periodIndex) / total
+        Double mean = getMean(path, fieldName, periodIndex)
+        if (mean == null) return null
+        total == 0d ? 0d : mean / total
     }
 
     public Double getStdDevRatio(String path, String fieldName, int periodIndex, double total) {
-        total == 0d ? 0d : getStdDev(path, fieldName, periodIndex) / total
+        Double stdDev = getStdDev(path, fieldName, periodIndex)
+        if (stdDev == null) return null
+        total == 0d ? 0d : stdDev / total
     }
 
     public Double getVarRatio(String path, String fieldName, int periodIndex, double severity, double total) {
-        total == 0d ? 0d : getVar(path, fieldName, periodIndex, severity) / total
+        Double var = getVar(path, fieldName, periodIndex, severity)
+        if (var == null) return null
+        total == 0d ? 0d : var / total
     }
 
     public Double getTVaRRatio(String path, String fieldName, int periodIndex, double severity, double total) {
-        total == 0d ? 0d : getTvar(path, fieldName, periodIndex, severity) / total
+        Double tVar = getTvar(path, fieldName, periodIndex, severity)
+        if (tVar == null) return null
+        total == 0d ? 0d : tVar / total
     }
 
     public Double getPercentileRatio(String path, String fieldName, int periodIndex, double severity, double total) {
-        total == 0d ? 0d : getPercentile(path, fieldName, periodIndex, severity) / total
+        Double percentile = getPercentile(path, fieldName, periodIndex, severity)
+        if (percentile == null) return null
+        total == 0d ? 0d : percentile / total
     }
 
     public List getValues(String path, String fieldName, int periodIndex) {

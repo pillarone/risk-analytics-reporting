@@ -38,17 +38,17 @@
 				<text><![CDATA[Definition]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="36" width="71" height="20"/>
+				<reportElement x="0" y="36" width="266" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{perilName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="36" width="124" height="20"/>
+				<reportElement x="356" y="36" width="124" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{claimType}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="71" y="36" width="71" height="20"/>
+				<reportElement x="285" y="36" width="71" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{claimTypeLabel}]]></textFieldExpression>
 			</textField>
@@ -64,7 +64,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{relevantPortionLabel}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="71" y="76" width="118" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -74,66 +74,66 @@
 			<line>
 				<reportElement x="2" y="56" width="478" height="1"/>
 			</line>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="71" y="96" width="71" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{severityDistributionParam1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="71" y="116" width="71" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{severityDistributionParam2} != null )]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{severityDistributionParam2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="71" y="136" width="71" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{severityDistributionParam3} != null )]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{severityDistributionParam3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="142" y="96" width="124" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{severityDistributionValue1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="142" y="136" width="124" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{severityDistributionValue3} != null )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{severityDistributionValue3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="142" y="116" width="124" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{severityDistributionValue2} != null )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{severityDistributionValue2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="285" y="96" width="71" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{frequencyDistribution} != null )]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{frequencyDistributionParam1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="356" y="116" width="124" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{frequencyDistribution} != null && $F{frequencyDistributionValue2} != null)]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{frequencyDistributionValue2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="285" y="136" width="71" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{frequencyDistribution} != null && $F{frequencyDistributionParam3} != null)]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{frequencyDistributionParam3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="285" y="76" width="146" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{frequencyDistribution} != null )]]></printWhenExpression>
 				</reportElement>
@@ -142,21 +142,21 @@
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{frequencyDistribution}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="356" y="96" width="124" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{frequencyDistribution} != null )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{frequencyDistributionValue1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="285" y="116" width="71" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{frequencyDistribution} != null && $F{frequencyDistributionParam2} != null)]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{frequencyDistributionParam2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="356" y="136" width="124" height="20">
 					<printWhenExpression><![CDATA[new Boolean($F{frequencyDistribution} != null && $F{frequencyDistributionValue3} != null)]]></printWhenExpression>
 				</reportElement>

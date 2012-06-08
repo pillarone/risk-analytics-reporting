@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.data.JRMapCollectionDataSource
 import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import org.pillarone.riskanalytics.domain.utils.math.distribution.DistributionModified
 import org.pillarone.riskanalytics.domain.pc.cf.reinsurance.contract.ReinsuranceContract
+import org.pillarone.riskanalytics.domain.pc.cf.claim.generator.PMLClaimsGeneratorStrategy
 
 /**
  * @author stefan.kunz (at) intuitive-collaboration (dot) com
@@ -75,16 +76,33 @@ public class GIRAParameterReportingUtils {
             ClaimType claimType = claimsGenerator.parmClaimsModel.claimType()
 
             RandomDistribution severityDistribution = (RandomDistribution) claimsGenerator.parmClaimsModel.parameters['claimsSizeDistribution']
-            List<String> parameterNames = new ArrayList<String>(severityDistribution.parameters.keySet())
-            List<Number> parameterValues = new ArrayList<Number>(severityDistribution.parameters.values())
-            ClaimsGeneratorBean bean = new ClaimsGeneratorBean(
-                    perilName: claimsGenerator.normalizedName,
-                    severityDistribution: severityDistribution.getType().getTypeName(),
-                    severityDistributionParam1: parameterNames[0],
-                    severityDistributionValue1: parameterValues[0].toString(),
-                    claimType: claimsGenerator.parmClaimsModel.type.toString(),
-                    severityDistributionModification: claimsGenerator.parmClaimsModel.claimsSizeModification.type.toString()
-            )
+            ClaimsGeneratorBean bean
+            if (severityDistribution) {
+                List<String> parameterNames = new ArrayList<String>(severityDistribution.parameters.keySet())
+                List<Number> parameterValues = new ArrayList<Number>(severityDistribution.parameters.values())
+                bean = new ClaimsGeneratorBean(
+                        perilName: claimsGenerator.normalizedName,
+                        severityDistribution: severityDistribution.getType().getTypeName(),
+                        severityDistributionParam1: parameterNames[0],
+                        severityDistributionValue1: parameterValues[0].toString(),
+                        claimType: claimsGenerator.parmClaimsModel.type.toString(),
+                        severityDistributionModification: claimsGenerator.parmClaimsModel.claimsSizeModification.type.toString()
+                )
+                if (parameterNames.size() > 1) {
+                    bean.severityDistributionParam2 = parameterNames[1]
+                    bean.severityDistributionValue2 = parameterValues[1].toString()
+                }
+                if (parameterNames.size() > 2) {
+                    bean.severityDistributionParam3 = parameterNames.get(2)
+                    bean.severityDistributionValue3 = parameterValues.get(2).toString()
+                }
+            }
+            else {  // i.e. PMLClaimsGeneratorStrategy has no parameters
+                bean = new ClaimsGeneratorBean(
+                        perilName: claimsGenerator.normalizedName,
+//                        severityDistribution: claimsGenerator.parmClaimsModel.toString(),
+                        claimType: claimsGenerator.parmClaimsModel.type.toString())
+            }
             if (bean.severityDistributionModification != 'none') {
               //TODO: sku: fix report
                 /*DistributionModified severityModification = (DistributionModified) claimsGenerator.parmClaimsModel.parameters['claimsSizeModification']
@@ -96,28 +114,23 @@ public class GIRAParameterReportingUtils {
                 bean.severityDistributionModificationValue1 = parameterModificationValues[0]
                 bean.severityDistributionModificationValue2 = parameterModificationValues[1]*/
             }
-            if (parameterNames.size() > 1) {
-                bean.severityDistributionParam2 = parameterNames[1]
-                bean.severityDistributionValue2 = parameterValues[1].toString()
-            }
-            if (parameterNames.size() > 2) {
-                bean.severityDistributionParam3 = parameterNames.get(2)
-                bean.severityDistributionValue3 = parameterValues.get(2).toString()
-            }
+
             if (!claimType.equals(ClaimType.ATTRITIONAL)) {
                 RandomFrequencyDistribution frequencyDistribution = (RandomFrequencyDistribution) claimsGenerator.parmClaimsModel.parameters['frequencyDistribution']
-                bean.setFrequencyDistribution(frequencyDistribution.getType().getTypeName())
-                List<String> freqParameterNames = new ArrayList<String>(frequencyDistribution.parameters.keySet())
-                List<Number> freqParameterValues = new ArrayList<Number>(frequencyDistribution.parameters.values())
-                bean.frequencyDistributionParam1 = freqParameterNames[0]
-                bean.frequencyDistributionValue1 = freqParameterValues[0].toString()
-                if (freqParameterNames.size() > 1) {
-                    bean.frequencyDistributionParam1 = freqParameterNames[1]
-                    bean.frequencyDistributionValue1 = freqParameterValues[1].toString()
-                }
-                if (freqParameterNames.size() > 2) {
-                    bean.frequencyDistributionParam1 = freqParameterNames[2]
-                    bean.frequencyDistributionValue1 = freqParameterValues[2].toString()
+                if (frequencyDistribution) {
+                    bean.setFrequencyDistribution(frequencyDistribution.getType().getTypeName())
+                    List<String> freqParameterNames = new ArrayList<String>(frequencyDistribution.parameters.keySet())
+                    List<Number> freqParameterValues = new ArrayList<Number>(frequencyDistribution.parameters.values())
+                    bean.frequencyDistributionParam1 = freqParameterNames[0]
+                    bean.frequencyDistributionValue1 = freqParameterValues[0].toString()
+                    if (freqParameterNames.size() > 1) {
+                        bean.frequencyDistributionParam1 = freqParameterNames[1]
+                        bean.frequencyDistributionValue1 = freqParameterValues[1].toString()
+                    }
+                    if (freqParameterNames.size() > 2) {
+                        bean.frequencyDistributionParam1 = freqParameterNames[2]
+                        bean.frequencyDistributionValue1 = freqParameterValues[2].toString()
+                    }
                 }
             }
             claimsGeneratorBeans[bean.perilName] = bean
