@@ -5,32 +5,36 @@ grails.project.dependency.resolution = {
     repositories {
         grailsHome()
         grailsCentral()
+
+        mavenCentral()
+        mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
     }
 
-    mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
     String ulcVersion = "ria-suite-u5"
 
     plugins {
         runtime ":background-thread:1.3"
-        runtime ":hibernate:1.3.7"
+        runtime ":hibernate:2.2.1"
         runtime ":joda-time:0.5"
-        runtime ":maven-publisher:0.7.5"
+        runtime ":maven-publisher:0.7.5", {
+            excludes "groovy"
+        }
         runtime ":quartz:0.4.2"
-        runtime ":spring-security-core:1.1.2"
-        runtime ":tomcat:1.3.7"
+        runtime ":spring-security-core:1.2.7.3"
+        runtime ":tomcat:2.2.1"
 
         compile "com.canoo:ulc:${ulcVersion}"
         runtime "org.pillarone:pillar-one-ulc-extensions:0.3"
 
         test ":code-coverage:1.2.4"
-        test ":excel-import:0.9.6"
+        compile ":excel-import:0.9.6"
 
 
         if (appName == "risk-analytics-reporting") {
-            runtime "org.pillarone:risk-analytics-core:1.6-ALPHA-4.8"
-            runtime ("org.pillarone:risk-analytics-application:1.6-ALPHA-4.2") { transitive = false }
-            runtime ("org.pillarone:risk-analytics-pc-cashflow:0.4.8.20") { transitive = false }
-            runtime ("org.pillarone:risk-analytics-commons:0.4.7") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.7-a2"
+            runtime ("org.pillarone:risk-analytics-application:1.7-a3") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-pc-cashflow:0.7") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-commons:0.5") { transitive = false }
         }
     }
 
