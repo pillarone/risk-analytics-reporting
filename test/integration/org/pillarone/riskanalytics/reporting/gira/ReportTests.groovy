@@ -23,7 +23,7 @@ class ReportTests extends GroovyTestCase {
         Simulation simulation = new Simulation("simulation")
         simulation.modelClass = GIRAModel
         simulation.parameterization = ModellingItemFactory.getParameterization(ParameterizationDAO.findByName("CapitalEagle NP+ALL50"))
-        simulation.template = ModellingItemFactory.getResultConfiguration(ResultConfigurationDAO.findByName("Details, Aggregated, CY Split"))
+        simulation.template = ModellingItemFactory.getResultConfiguration(ResultConfigurationDAO.findByName("Segments (Calendar Year/Source)"))
         simulation.periodCount = 1
         simulation.numberOfIterations = 100
         simulation.save()
