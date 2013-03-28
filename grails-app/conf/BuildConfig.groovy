@@ -10,7 +10,7 @@ grails.project.dependency.resolution = {
         mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
     }
 
-    String ulcVersion = "ria-suite-u5"
+    String ulcVersion = "ria-suite-2012-u1"
 
     plugins {
         runtime ":background-thread:1.3"
@@ -24,7 +24,7 @@ grails.project.dependency.resolution = {
         runtime ":tomcat:2.2.1"
 
         compile "com.canoo:ulc:${ulcVersion}"
-        runtime "org.pillarone:pillar-one-ulc-extensions:0.3"
+        runtime "org.pillarone:pillar-one-ulc-extensions:0.5"
 
         test ":code-coverage:1.2.4"
         compile ":excel-import:0.9.6"
@@ -32,19 +32,10 @@ grails.project.dependency.resolution = {
 
         if (appName == "risk-analytics-reporting") {
             runtime "org.pillarone:risk-analytics-core:1.7-a2"
-            runtime ("org.pillarone:risk-analytics-application:1.7-a3") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-application:1.7-a7") { transitive = false }
             runtime ("org.pillarone:risk-analytics-pc-cashflow:0.7") { transitive = false }
             runtime ("org.pillarone:risk-analytics-commons:0.5") { transitive = false }
         }
-    }
-
-    dependencies {
-        compile group: 'canoo', name: 'ulc-applet-client', version: ulcVersion
-        compile group: 'canoo', name: 'ulc-base-client', version: ulcVersion
-        compile group: 'canoo', name: 'ulc-base-trusted', version: ulcVersion
-        compile group: 'canoo', name: 'ulc-jnlp-client', version: ulcVersion
-        compile group: 'canoo', name: 'ulc-servlet-client', version: ulcVersion
-        compile group: 'canoo', name: 'ulc-standalone-client', version: ulcVersion
     }
 }
 

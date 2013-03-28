@@ -1,22 +1,25 @@
 package org.pillarone.riskanalytics.reporting.gira
 
-import org.pillarone.riskanalytics.core.report.ReportFactory
-import org.pillarone.riskanalytics.core.simulation.item.Simulation
 import models.gira.GIRAModel
-import org.pillarone.riskanalytics.core.fileimport.FileImportService
 import org.pillarone.riskanalytics.application.dataaccess.item.ModellingItemFactory
+import org.pillarone.riskanalytics.application.util.LocaleResources
 import org.pillarone.riskanalytics.core.ParameterizationDAO
+import org.pillarone.riskanalytics.core.fileimport.FileImportService
 import org.pillarone.riskanalytics.core.output.ResultConfigurationDAO
+import org.pillarone.riskanalytics.core.report.ReportFactory
 import org.pillarone.riskanalytics.core.report.impl.ModellingItemReportData
-import org.pillarone.riskanalytics.core.simulation.item.Parameterization
-import org.pillarone.riskanalytics.reporting.gira.reports.UnderwritingReportModel
-import org.pillarone.riskanalytics.core.report.IReportData
-
+import org.pillarone.riskanalytics.core.simulation.item.Simulation
 
 class ReportTests extends GroovyTestCase {
 
     void setUp() {
+        LocaleResources.setTestMode()
         FileImportService.importModelsIfNeeded(['GIRA'])
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        LocaleResources.clearTestMode()
     }
 
     void testCreateGIRAReport() {
