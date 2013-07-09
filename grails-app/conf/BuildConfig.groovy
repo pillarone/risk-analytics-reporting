@@ -24,17 +24,17 @@ grails.project.dependency.resolution = {
         runtime ":tomcat:2.2.1"
 
         compile "com.canoo:ulc:${ulcVersion}"
-        runtime "org.pillarone:pillar-one-ulc-extensions:0.5"
+        runtime "org.pillarone:pillar-one-ulc-extensions:0.8"
 
         test ":code-coverage:1.2.4"
-        compile ":excel-import:0.9.6"
+        compile ":excel-import:1.0.0"
 
 
         if (appName == "risk-analytics-reporting") {
-            runtime "org.pillarone:risk-analytics-core:1.7-a2"
-            runtime ("org.pillarone:risk-analytics-application:1.7-a7") { transitive = false }
-            runtime ("org.pillarone:risk-analytics-pc-cashflow:0.7") { transitive = false }
-            runtime ("org.pillarone:risk-analytics-commons:0.5") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.7"
+            runtime ("org.pillarone:risk-analytics-application:1.7") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-pc-cashflow:1.7") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-commons:1.7") { transitive = false }
         }
     }
 }
