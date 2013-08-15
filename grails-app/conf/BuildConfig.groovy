@@ -10,7 +10,7 @@ grails.project.dependency.resolution = {
         mavenRepo "https://repository.intuitive-collaboration.com/nexus/content/repositories/pillarone-public/"
     }
 
-    String ulcVersion = "ria-suite-2012-u1-2"
+    String ulcVersion = "ria-suite-2013-2"
 
     plugins {
         runtime ":background-thread:1.3"
@@ -31,8 +31,8 @@ grails.project.dependency.resolution = {
 
 
         if (appName == "risk-analytics-reporting") {
-            runtime "org.pillarone:risk-analytics-core:1.8-a1"
-            runtime ("org.pillarone:risk-analytics-application:1.8-a1") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.8-a4"
+            runtime ("org.pillarone:risk-analytics-application:1.8-a2") { transitive = false }
             runtime ("org.pillarone:risk-analytics-pc-cashflow:1.8-a1") { transitive = false }
             runtime ("org.pillarone:risk-analytics-commons:1.8-a1") { transitive = false }
         }
