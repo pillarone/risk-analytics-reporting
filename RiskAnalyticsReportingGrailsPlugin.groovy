@@ -5,7 +5,7 @@ import org.pillarone.riskanalytics.reporting.gira.reports.UnderwritingReportMode
 
 class RiskAnalyticsReportingGrailsPlugin {
     // the plugin version
-    def version = "1.8-a2"
+    def version = "1.8"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.2.1 > *"
     // the other plugins this plugin depends on
