@@ -24,7 +24,7 @@ grails.project.dependency.resolution = {
         runtime ":tomcat:2.2.1"
 
         compile "com.canoo:ulc:${ulcVersion}"
-        runtime "org.pillarone:pillar-one-ulc-extensions:0.8"
+        runtime "org.pillarone:pillar-one-ulc-extensions:1.1"
 
         test ":code-coverage:1.2.4"
         compile ":excel-import:1.0.0"
