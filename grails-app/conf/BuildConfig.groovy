@@ -1,5 +1,9 @@
+grails.project.dependency.resolver = "maven"
+
 grails.project.dependency.resolution = {
-    inherits "global" // inherit Grails' default dependencies
+    inherits ("global") { // inherit Grails' default dependencies
+        excludes "grails-docs" // itext library of grails is outdated.
+    }
     log "warn"
 
     repositories {
@@ -14,27 +18,33 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":background-thread:1.3"
-        runtime ":hibernate:2.2.1"
+        runtime ":hibernate:3.6.10.3"
         runtime ":joda-time:0.5"
-        runtime ":maven-publisher:0.7.5", {
-            excludes "groovy"
-        }
+        runtime ":release:3.0.1"
         runtime ":quartz:0.4.2"
-        runtime ":spring-security-core:1.2.7.3"
-        runtime ":tomcat:2.2.1"
+        runtime ":spring-security-core:2.0-RC2"
+        runtime ":tomcat:7.0.42"
 
         compile "com.canoo:ulc:${ulcVersion}"
-        runtime "org.pillarone:pillar-one-ulc-extensions:1.1"
+        runtime ("org.pillarone:pillar-one-ulc-extensions:1.3") { transitive = false }
 
-        test ":code-coverage:1.2.4"
+        test ":code-coverage:1.2.6"
         compile ":excel-import:1.0.0"
 
 
         if (appName == "risk-analytics-reporting") {
-            runtime "org.pillarone:risk-analytics-core:1.8.0.1"
-            runtime ("org.pillarone:risk-analytics-application:1.8") { transitive = false }
-            runtime ("org.pillarone:risk-analytics-pc-cashflow:1.8") { transitive = false }
-            runtime ("org.pillarone:risk-analytics-commons:1.8") { transitive = false }
+            runtime "org.pillarone:risk-analytics-core:1.9-a3"
+            runtime ("org.pillarone:risk-analytics-application:1.9-a1") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-pc-cashflow:1.9-a2") { transitive = false }
+            runtime ("org.pillarone:risk-analytics-commons:1.9-a2") { transitive = false }
+        }
+    }
+    dependencies {
+        compile (group:'com.lowagie', name:'itext', version:'2.1.7');
+        compile (group:'org.apache.poi', name:'poi', version:'3.9');
+        compile (group:'org.apache.poi', name:'poi', version:'3.9');
+        compile (group:'org.apache.poi', name:'poi-ooxml', version:'3.9') {
+            excludes 'xmlbeans'
         }
     }
 }
