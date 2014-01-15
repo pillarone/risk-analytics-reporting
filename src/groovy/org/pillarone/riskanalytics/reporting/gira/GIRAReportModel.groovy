@@ -6,6 +6,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource
 import org.pillarone.riskanalytics.application.ui.util.UIUtils
 import org.pillarone.riskanalytics.core.dataaccess.ResultAccessor
+import org.pillarone.riskanalytics.core.model.Model
 import org.pillarone.riskanalytics.core.report.IReportData
 import org.pillarone.riskanalytics.core.report.IReportModel
 import org.pillarone.riskanalytics.core.simulation.item.Simulation
@@ -41,6 +42,11 @@ class GIRAReportModel implements IReportModel {
         }
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(currentValues);
         return jrBeanCollectionDataSource
+    }
+
+    @Override
+    List<Class<? extends Model>> getSupportedModelClasses() {
+        return [GIRAModel]
     }
 
     /**

@@ -4,6 +4,7 @@ import models.gira.GIRAModel
 import net.sf.jasperreports.engine.JRDataSource
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import org.pillarone.riskanalytics.core.dataaccess.ResultAccessor
+import org.pillarone.riskanalytics.core.model.Model
 import org.pillarone.riskanalytics.core.report.IReportData
 import org.pillarone.riskanalytics.core.report.IReportModel
 import org.pillarone.riskanalytics.core.report.ReportFactory
@@ -25,6 +26,11 @@ public class UnderwritingReportModel implements IReportModel {
 
     public String getName() {
         'Underwriting Report'
+    }
+
+    @Override
+    List<Class<? extends Model>> getSupportedModelClasses() {
+        return [GIRAModel]
     }
 
     public URL getMainReportFile() {

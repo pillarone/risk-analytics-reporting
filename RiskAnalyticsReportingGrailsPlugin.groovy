@@ -42,8 +42,6 @@ Brief description of the plugin.
     }
 
     def doWithApplicationContext = { applicationContext ->
-        ReportRegistry.registerReportModel(GIRAModel, new GIRAReportModel())
-        ReportRegistry.registerReportModel(GIRAModel, new UnderwritingReportModel())
     }
 
     def onChange = { event ->
