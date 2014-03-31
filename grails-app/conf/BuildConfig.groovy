@@ -72,7 +72,7 @@ grails.project.dependency.distribution = {
     	remoteRepository(id: "pillarone", url: scpUrl) {
         	authentication username: user, password: password
     	}
-    } catch (Throwable t) {
+    } catch (Throwable ignored) {
     }
 }
 
