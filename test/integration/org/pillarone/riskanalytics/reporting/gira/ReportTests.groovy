@@ -13,13 +13,13 @@ import org.pillarone.riskanalytics.core.simulation.item.Simulation
 class ReportTests extends GroovyTestCase {
 
     void setUp() {
-        LocaleResources.setTestMode()
+        LocaleResources.setTestMode(true)
         FileImportService.importModelsIfNeeded(['GIRA'])
     }
 
     @Override
     protected void tearDown() throws Exception {
-        LocaleResources.clearTestMode()
+        LocaleResources.setTestMode(false)
     }
 
     void testCreateGIRAReport() {
